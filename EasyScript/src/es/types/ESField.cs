@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Reflection;
 
-namespace Engine.ES {
+namespace Easily.ES {
 
 /// <summary>
 /// @author Easily

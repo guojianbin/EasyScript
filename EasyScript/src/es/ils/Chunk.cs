@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Engine.Bases;
 using Engine.DS;
 
-namespace Engine.ES {
+namespace Easily.ES {
 
 /// <summary>
 /// @author Easily

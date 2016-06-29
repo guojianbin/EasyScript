@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Engine.DS;
 
-namespace Engine.ES {
+namespace Easily.ES {
 
 /// <summary>
 /// @author Easily

@@ -1,6 +1,6 @@
 using Engine.Bases;
 
-namespace Engine.ES {
+namespace Easily.ES {
 
 /// <summary>
 /// @author Easily

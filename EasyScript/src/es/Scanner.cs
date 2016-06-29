@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Engine.Bases;
 
-namespace Engine.ES {
+namespace Easily.ES {
 
 /// <summary>
 /// @author Easily

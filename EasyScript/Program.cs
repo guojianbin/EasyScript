@@ -1,14 +1,12 @@
 ﻿using System;
-using Engine.ES;
+using Easily.ES;
 
-namespace ES {
+static class Program {
 
-	static class Program {
-
-		static void Main(string[] args) {
-			var evm = new EVM();
-			evm.SetValue("print", new Action<object>(Console.WriteLine));
-			const string script = @"
+	static void Main(string[] args) {
+		var evm = new EVM();
+		evm.SetValue("print", new Action<object>(Console.WriteLine));
+		const string script = @"
 func calc() {
 	print(2 + 3)
 	print(2 - 3)
@@ -48,8 +46,7 @@ func main() {
 }
 main()
 ";
-			evm.Execute(script);
-		}
-
+		evm.Execute(script);
 	}
+
 }

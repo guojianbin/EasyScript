@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Engine.ES {
+namespace Easily.ES {
 
 /// <summary>
 /// @author Easily
