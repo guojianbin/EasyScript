@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5D206064-40C2-4CB0-80D1-30160E31E1BA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ES</RootNamespace>
+    <AssemblyName>ES</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\base\Disposable.cs" />
+    <Compile Include="src\base\EasyBox.cs" />
+    <Compile Include="src\base\EasyDefault.cs" />
+    <Compile Include="src\base\EasyGroup.cs" />
+    <Compile Include="src\base\EasyMachine.cs" />
+    <Compile Include="src\base\EasyObject.cs" />
+    <Compile Include="src\base\EasyRedis.cs" />
+    <Compile Include="src\base\EasyRound.cs" />
+    <Compile Include="src\base\EasyToggle.cs" />
+    <Compile Include="src\base\IEasyObject.cs" />
+    <Compile Include="src\base\IIdentifier.cs" />
+    <Compile Include="src\base\Observer.cs" />
+    <Compile Include="src\base\ThrowHelper.cs" />
+    <Compile Include="src\ds\BinaryHeap.cs" />
+    <Compile Include="src\ds\EasyBag.cs" />
+    <Compile Include="src\ds\EasyList.cs" />
+    <Compile Include="src\ds\EasyMap.cs" />
+    <Compile Include="src\ds\EasyQueue.cs" />
+    <Compile Include="src\ds\Struct.cs" />
+    <Compile Include="src\ds\SynchronizedQueue.cs" />
+    <Compile Include="src\es\EVM.cs" />
+    <Compile Include="src\es\expressions\ArrayExpression.cs" />
+    <Compile Include="src\es\expressions\AssignExpression.cs" />
+    <Compile Include="src\es\expressions\bases\ESDomain.cs" />
+    <Compile Include="src\es\expressions\bases\ESMarker.cs" />
+    <Compile Include="src\es\expressions\bases\Expression.cs" />
+    <Compile Include="src\es\expressions\bases\FuncExpression.cs" />
+    <Compile Include="src\es\expressions\bases\IExpression.cs" />
+    <Compile Include="src\es\expressions\bases\ListExpression.cs" />
+    <Compile Include="src\es\expressions\BooleanExpression.cs" />
+    <Compile Include="src\es\expressions\BreakExpression.cs" />
+    <Compile Include="src\es\expressions\ctrls\ForEachExpression.cs" />
+    <Compile Include="src\es\expressions\ctrls\ForExpression.cs" />
+    <Compile Include="src\es\expressions\ctrls\IfElseExpression.cs" />
+    <Compile Include="src\es\expressions\ctrls\IfExpression.cs" />
+    <Compile Include="src\es\expressions\ctrls\WhileExpression.cs" />
+    <Compile Include="src\es\expressions\IndexExpression.cs" />
+    <Compile Include="src\es\expressions\InvokeExpression.cs" />
+    <Compile Include="src\es\expressions\logics\EQExpression.cs" />
+    <Compile Include="src\es\expressions\logics\GEExpression.cs" />
+    <Compile Include="src\es\expressions\logics\GTExpression.cs" />
+    <Compile Include="src\es\expressions\logics\LEExpression.cs" />
+    <Compile Include="src\es\expressions\logics\LogicExpression.cs" />
+    <Compile Include="src\es\expressions\logics\LTExpression.cs" />
+    <Compile Include="src\es\expressions\logics\NEQExpression.cs" />
+    <Compile Include="src\es\expressions\logics\NotExpression.cs" />
+    <Compile Include="src\es\expressions\maths\DivExpression.cs" />
+    <Compile Include="src\es\expressions\maths\MathExpression.cs" />
+    <Compile Include="src\es\expressions\maths\MulExpression.cs" />
+    <Compile Include="src\es\expressions\maths\NegativeExpression.cs" />
+    <Compile Include="src\es\expressions\maths\PlusExpression.cs" />
+    <Compile Include="src\es\expressions\maths\SubExpression.cs" />
+    <Compile Include="src\es\expressions\NumberExpression.cs" />
+    <Compile Include="src\es\expressions\PropertyExpression.cs" />
+    <Compile Include="src\es\expressions\ReturnExpression.cs" />
+    <Compile Include="src\es\expressions\StringExpression.cs" />
+    <Compile Include="src\es\expressions\TableExpression.cs" />
+    <Compile Include="src\es\expressions\WordExpression.cs" />
+    <Compile Include="src\es\ils\Chunk.cs" />
+    <Compile Include="src\es\ils\EIL.cs" />
+    <Compile Include="src\es\Module.cs" />
+    <Compile Include="src\es\Parser.cs" />
+    <Compile Include="src\es\Scanner.cs" />
+    <Compile Include="src\es\Token.cs" />
+    <Compile Include="src\es\types\ESArray.cs" />
+    <Compile Include="src\es\types\ESBoolean.cs" />
+    <Compile Include="src\es\types\ESDefault.cs" />
+    <Compile Include="src\es\types\ESDelegate.cs" />
+    <Compile Include="src\es\types\ESField.cs" />
+    <Compile Include="src\es\types\ESFunction.cs" />
+    <Compile Include="src\es\types\ESKey.cs" />
+    <Compile Include="src\es\types\ESMethod.cs" />
+    <Compile Include="src\es\types\ESNumber.cs" />
+    <Compile Include="src\es\types\ESObject.cs" />
+    <Compile Include="src\es\types\ESProperty.cs" />
+    <Compile Include="src\es\types\ESProxy.cs" />
+    <Compile Include="src\es\types\ESPuppet.cs" />
+    <Compile Include="src\es\types\ESSprite.cs" />
+    <Compile Include="src\es\types\ESString.cs" />
+    <Compile Include="src\es\types\ESTable.cs" />
+    <Compile Include="src\es\types\ESType.cs" />
+    <Compile Include="src\es\types\IESObject.cs" />
+    <Compile Include="src\es\utils\ESExtensions.cs" />
+    <Compile Include="src\es\utils\ESLibrary.cs" />
+    <Compile Include="src\es\utils\ESUtility.cs" />
+    <Compile Include="src\events\EventDispatcher.cs" />
+    <Compile Include="src\events\EventProxy.cs" />
+    <Compile Include="src\tasks\ITask.cs" />
+    <Compile Include="src\tasks\Task.cs" />
+    <Compile Include="src\utils\Extensions.cs" />
+    <Compile Include="src\utils\StringUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
