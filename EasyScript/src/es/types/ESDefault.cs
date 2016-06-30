@@ -5,14 +5,14 @@
 /// </summary>
 public class ESDefault : ESObject {
 
-	public static readonly IESObject Value = new ESDefault();
+	public static readonly IESObject Value = NIO<ESDefault>();
 
 	public override bool IsTrue() {
 		return false;
 	}
 
 	public override string ToString() {
-		return "DEFAULT";
+		return "Default";
 	}
 
 }
