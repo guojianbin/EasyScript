@@ -23,6 +23,12 @@ func ctrl() {
 	foreach (i in arr) {
 		print(i)
 	}
+	map = {a:1, b:2}
+	foreach (o in map) {
+		print(o)
+	}
+	print(map[""a""])
+	print(map.b)
 }
 func closure() {
 	n = 100
@@ -32,6 +38,12 @@ func closure() {
 	}
 	for (i = 0, 10)  {
 		print(f())
+	}
+	f2 = func(m) {
+		return f() + m
+	}
+	for (i = 0, 10)  {
+		print(f2(100))
 	}
 }
 func main() {
@@ -57,6 +69,10 @@ n > 0
 1
 2
 3
+[a, ESNumber Value: 1]
+[b, ESNumber Value: 2]
+1
+2
 101
 102
 103
@@ -67,4 +83,14 @@ n > 0
 108
 109
 110
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
 ```

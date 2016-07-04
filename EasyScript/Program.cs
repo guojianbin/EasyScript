@@ -32,7 +32,7 @@ func ctrl() {
 		print(o)
 	}
 	print(map[""a""])
-	print(map[""b""])
+	print(map.b)
 }
 func closure() {
 	n = 100
