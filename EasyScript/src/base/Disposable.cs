@@ -43,6 +43,7 @@ public class Disposable : IDisposable {
 
 	public void Dispose() {
 		if (!_isDisposed) {
+			GC.SuppressFinalize(this);
 			Dispose(true);
 			OnDispose();
 		}
