@@ -24,6 +24,7 @@ public class ForMarker : ESMarker { }
 public class ForEachMarker : ESMarker { }
 public class InMarker : ESMarker { }
 public class FuncMarker : ESMarker { }
+public class ClassMarker : ESMarker { }
 public class IfMarker : ESMarker { }
 public class ElseMarker : ESMarker { }
 

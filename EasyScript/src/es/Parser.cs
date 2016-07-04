@@ -29,6 +29,7 @@ public class Parser : Disposable {
 		_t2e.Add(TokenType.BREAK, t => new BreakMarker());
 		_t2e.Add(TokenType.WHILE, t => new WhileMarker());
 		_t2e.Add(TokenType.FUNC, t => new FuncMarker());
+		_t2e.Add(TokenType.CLASS, t => new ClassMarker());
 		_t2e.Add(TokenType.FOR, t => new ForMarker());
 		_t2e.Add(TokenType.FOREACH, t => new ForEachMarker());
 		_t2e.Add(TokenType.IN, t => new InMarker());
@@ -220,6 +221,21 @@ public class Parser : Disposable {
 				Parse(item1.Values, args);
 				Parse(item2.Values);
 				list.Insert(pos, new FuncExpression(args, item2.Unbound()));
+			}
+		}
+
+		pos = -1;
+		while (pos + 1 < list.Count && (pos = list.FindIndex(pos + 1, e => e is ClassMarker)) != -1) {
+			if (pos + 1 < list.Count && list[pos + 1] is INameExpression
+				&& pos + 2 < list.Count && list[pos + 2] is BBExpression) {// class name
+				var item1 = list[pos + 1].Cast<INameExpression>();
+				var item2 = list[pos + 2].Cast<SSExpression>();
+				var item3 = list[pos + 3].Cast<BBExpression>();
+				list.RemoveRange(pos, 4);
+				var args = new List<string>();
+				Parse(item2.Values, args);
+				Parse(item3.Values);
+				list.Insert(pos, new ClassExpression(item1.Name, args, item3.Unbound()));
 			}
 		}
 

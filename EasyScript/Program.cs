@@ -27,6 +27,12 @@ func ctrl() {
 	foreach (i in arr) {
 		print(i)
 	}
+	map = {a:1, b:2}
+	foreach (o in map) {
+		print(o)
+	}
+	print(map[""a""])
+	print(map[""b""])
 }
 func closure() {
 	n = 100
@@ -36,6 +42,12 @@ func closure() {
 	}
 	for (i = 0, 10)  {
 		print(f())
+	}
+	f2 = func(m) {
+		return f() + m
+	}
+	for (i = 0, 10)  {
+		print(f2(100))
 	}
 }
 func main() {

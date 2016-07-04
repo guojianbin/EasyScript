@@ -66,6 +66,7 @@
     <Compile Include="src\es\EVM.cs" />
     <Compile Include="src\es\expressions\ArrayExpression.cs" />
     <Compile Include="src\es\expressions\AssignExpression.cs" />
+    <Compile Include="src\es\expressions\bases\ClassExpression.cs" />
     <Compile Include="src\es\expressions\bases\ESDomain.cs" />
     <Compile Include="src\es\expressions\bases\ESMarker.cs" />
     <Compile Include="src\es\expressions\bases\Expression.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="src\es\Token.cs" />
     <Compile Include="src\es\types\ESArray.cs" />
     <Compile Include="src\es\types\ESBoolean.cs" />
+    <Compile Include="src\es\types\ESClass.cs" />
     <Compile Include="src\es\types\ESDefault.cs" />
     <Compile Include="src\es\types\ESDelegate.cs" />
     <Compile Include="src\es\types\ESField.cs" />

@@ -18,6 +18,7 @@ public class Scanner : Disposable {
 	private static readonly Regex _numReg = new Regex(@"(\d+\.\d+|\b\d+\b)");
 
 	private static readonly Regex _funcReg = new Regex(@"\bfunc\b");
+	private static readonly Regex _classReg = new Regex(@"\bclass\b");
 	private static readonly Regex _forReg = new Regex(@"\bfor\b");
 	private static readonly Regex _foreachReg = new Regex(@"\bforeach\b");
 	private static readonly Regex _inReg = new Regex(@"\bin\b");
@@ -41,6 +42,7 @@ public class Scanner : Disposable {
 		_matchObjs.Add(Struct.Create(_cmmReg, new Func<Match, Token>(m => new Token(TokenType.COMM, m.Value))));
 		_matchObjs.Add(Struct.Create(_strReg, new Func<Match, Token>(m => new Token(TokenType.STR, m.Value))));
 		_matchObjs.Add(Struct.Create(_funcReg, new Func<Match, Token>(m => new Token(TokenType.FUNC, m.Value))));
+		_matchObjs.Add(Struct.Create(_classReg, new Func<Match, Token>(m => new Token(TokenType.CLASS, m.Value))));
 		_matchObjs.Add(Struct.Create(_forReg, new Func<Match, Token>(m => new Token(TokenType.FOR, m.Value))));
 		_matchObjs.Add(Struct.Create(_foreachReg, new Func<Match, Token>(m => new Token(TokenType.FOREACH, m.Value))));
 		_matchObjs.Add(Struct.Create(_inReg, new Func<Match, Token>(m => new Token(TokenType.IN, m.Value))));

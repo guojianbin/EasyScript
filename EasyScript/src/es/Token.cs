@@ -21,7 +21,7 @@ public enum TokenType {
 	DOT,							// .
 	COL,							// :
 	PLUS, SUB, MUL, DIV,		// +-*/
-	FUNC,							// func
+	FUNC,CLASS,					// func,class
 	FOR,FOREACH,IN,				// for,foreach,in
 	WHILE,							// while
 	TRUE,FALSE,					// true,false
