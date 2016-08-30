@@ -10,6 +10,25 @@ namespace Easily.ES {
 		private readonly string _key;
 		private readonly IESTable _table;
 
+		public object Target {
+			get { return _table; }
+		}
+
+		int IESInteger.Value {
+			set { SetValue(new ESNumber(value)); }
+			get { return ToInt32(ToObject()); }
+		}
+
+		float IESNumber.Value {
+			set { SetValue(new ESNumber(value)); }
+			get { return ToFloat(ToObject()); }
+		}
+
+		string IESString.Value {
+			set { SetValue(new ESString(value)); }
+			get { return ToString(ToObject()); }
+		}
+
 		public ESKey(IESTable table, string key) {
 			_table = table;
 			_key = key;
@@ -17,10 +36,6 @@ namespace Easily.ES {
 
 		public T GetValue<T>() {
 			return (T)GetValue();
-		}
-
-		public override string ToString() {
-			return string.Format("ESKey Key: {0}, Table: {1}", _key, _table);
 		}
 
 		public IEnumerator GetEnumerator() {
@@ -48,20 +63,6 @@ namespace Easily.ES {
 			return GetValue().ToBoolean();
 		}
 
-		int IESInteger.Value {
-			set { SetValue(new ESNumber(value)); }
-			get { return ToInt32(ToObject()); }
-		}
-
-		float IESNumber.Value {
-			set { SetValue(new ESNumber(value)); }
-			get { return ToFloat(ToObject()); }
-		}
-
-		public object Target {
-			get { return _table; }
-		}
-
 		public void SetValue(IESObject value) {
 			_table[_key] = value;
 		}
@@ -74,9 +75,8 @@ namespace Easily.ES {
 			return _table[_key];
 		}
 
-		string IESString.Value {
-			set { SetValue(new ESString(value)); }
-			get { return ToString(ToObject()); }
+		public override string ToString() {
+			return string.Format("ESKey Key: {0}, Table: {1}", _key, _table);
 		}
 
 	}

@@ -14,20 +14,16 @@ namespace Easily.ES {
 			_args = args;
 		}
 
-		public override string ToString() {
-			return string.Format("ExpressionTable Map: {0}", _args.Count);
-		}
-
 		public override IESObject Execute(ESContext context) {
 			return GetValue(context);
 		}
 
 		public IESObject GetValue(ESContext context) {
-			if (_args.Count == 0) {
-				return new ESTable();
-			} else {
-				return new ESTable(_args.ToDictionary(t => t.Key, t => t.Value.GetValue(context)));
-			}
+			return _args.Count == 0 ? new ESTable() : new ESTable(_args.ToDictionary(t => t.Key, t => t.Value.GetValue(context)));
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionTable Map: {0}", _args.Count);
 		}
 
 	}

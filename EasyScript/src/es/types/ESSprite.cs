@@ -14,6 +14,25 @@ namespace Easily.ES {
 			get { return _value; }
 		}
 
+		int IESCollection.Count {
+			get { return GetValue<ICollection>().Count; }
+		}
+
+		int IESInteger.Value {
+			set { _value = value; }
+			get { return ToInt32(_value); }
+		}
+
+		float IESNumber.Value {
+			set { _value = value; }
+			get { return ToFloat(_value); }
+		}
+
+		string IESString.Value {
+			set { _value = value; }
+			get { return ToString(_value); }
+		}
+
 		public ESSprite(object value) {
 			_value = value;
 		}
@@ -24,14 +43,6 @@ namespace Easily.ES {
 			} catch (Exception e) {
 				throw new InvalidOperationException(ToString(), e);
 			}
-		}
-
-		public override string ToString() {
-			return string.Format("ESSprite Value: {0}", _value);
-		}
-
-		int IESCollection.Count {
-			get { return GetValue<ICollection>().Count; }
 		}
 
 		public override bool ToBoolean() {
@@ -50,19 +61,8 @@ namespace Easily.ES {
 			return GetValue<IEnumerable>().GetEnumerator();
 		}
 
-		int IESInteger.Value {
-			set { _value = value; }
-			get { return ToInt32(_value); }
-		}
-
-		float IESNumber.Value {
-			set { _value = value; }
-			get { return ToFloat(_value); }
-		}
-
-		string IESString.Value {
-			set { _value = value; }
-			get { return ToString(_value); }
+		public override string ToString() {
+			return string.Format("ESSprite Value: {0}", _value);
 		}
 
 	}

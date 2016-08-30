@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Easily.Bases;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -29,11 +30,13 @@ namespace Easily.ES {
 		private static readonly Regex _while = new Regex(@"\bwhile\b");
 		private static readonly Regex _true = new Regex(@"\btrue\b");
 		private static readonly Regex _false = new Regex(@"\bfalse\b");
+
 		private static readonly List<Struct<Regex, Func<Match, Token>>> _matches = new List<Struct<Regex, Func<Match, Token>>>();
 		private static readonly Dictionary<char, TokenType> _m2t = new Dictionary<char, TokenType>();
 		private static readonly HashSet<char> _markers;
 		private static readonly Dictionary<TokenType, Struct<TokenType, TokenType>> _ranges = new Dictionary<TokenType, Struct<TokenType, TokenType>>();
 		private static readonly HashSet<TokenType> _opens;
+
 		private readonly BitArray _flags;
 		private readonly string _src;
 		private readonly SortedList<int, Token> _tokens = new SortedList<int, Token>();
@@ -95,17 +98,12 @@ namespace Easily.ES {
 
 		private List<Token> Start() {
 			Parse();
-			Parse2();
 
 			_tokens2.AddRange(_tokens.Values.Where(t => t.Type != TokenType.COMM));
 			_tokens.Clear();
 
-			Parse3();
+			ParseBounds();
 			return _tokens2;
-		}
-
-		private void Parse() {
-			_matches.ForEach(t => Parse(t.Item1, t.Item2));
 		}
 
 		private void Parse(Regex reg, Func<Match, Token> func) {
@@ -113,7 +111,8 @@ namespace Easily.ES {
 			matches.ForEach(t => Add(t.Index, func(t)));
 		}
 
-		private void Parse2() {
+		private void Parse() {
+			_matches.ForEach(t => Parse(t.Item1, t.Item2));
 			var pos = 0;
 			while (true) {
 				if (pos >= _src.Length) {
@@ -126,14 +125,15 @@ namespace Easily.ES {
 				var index = FindMarker(pos);
 				if (index == -1) {
 					break;
-				} else {
+				}
+				else {
 					Add(index, new Token(_m2t[_src[index]]));
 					pos = index + 1;
 				}
 			}
 		}
 
-		public int FindMarker(int pos) {
+		private int FindMarker(int pos) {
 			for (var i = pos; i < _src.Length; i++) {
 				if (_markers.Contains(_src[i])) {
 					return i;
@@ -154,20 +154,20 @@ namespace Easily.ES {
 			}
 		}
 
-		private void Parse3() {
+		private void ParseBounds() {
 			for (var i = 0; i < _tokens2.Count; i++) {
 				if (_opens.Contains(_tokens2[i].Type)) {
 					var obj = _ranges[_tokens2[i].Type];
-					Parse3(i, obj.Item1, obj.Item2);
+					ParseBounds(i, obj.Item1, obj.Item2);
 				}
 			}
 		}
 
-		private void Parse3(int pos, TokenType right, TokenType comb) {
+		private void ParseBounds(int pos, TokenType right, TokenType comb) {
 			for (var i = pos + 1; i < _tokens2.Count; i++) {
 				if (_opens.Contains(_tokens2[i].Type)) {
 					var obj = _ranges[_tokens2[i].Type];
-					Parse3(i, obj.Item1, obj.Item2);
+					ParseBounds(i, obj.Item1, obj.Item2);
 				} else if (_tokens2[i].Type == right) {
 					var len = i - pos + 1;
 					var list = _tokens2.GetRange(pos + 1, len - 2);

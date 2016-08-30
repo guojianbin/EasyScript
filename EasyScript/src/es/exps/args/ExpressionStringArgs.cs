@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Easily.Utility;
 
 namespace Easily.ES {
 
+	/// <summary>
+	/// @author Easily
+	/// </summary>
 	public class ExpressionStringArgs : Expression, IEnumerable<string> {
 
 		private readonly List<string> _args;
@@ -16,8 +20,7 @@ namespace Easily.ES {
 		}
 
 		public ExpressionStringArgs(string arg) {
-			_args = new List<string>();
-			_args.Add(arg);
+			_args = new List<string> { arg };
 		}
 
 		public ExpressionStringArgs(List<string> args) {

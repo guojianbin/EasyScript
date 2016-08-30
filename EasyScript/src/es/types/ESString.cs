@@ -10,16 +10,31 @@ namespace Easily.ES {
 
 		private readonly string _value;
 
+		public int Count {
+			get { return _value.Length; }
+		}
+
+		int IESInteger.Value {
+			set { throw new InvalidOperationException(ToString()); }
+			get { return ToInt32(_value); }
+		}
+
+		float IESNumber.Value {
+			set { throw new InvalidOperationException(ToString()); }
+			get { return ToFloat(_value); }
+		}
+
+		public string Value {
+			set { throw new InvalidOperationException(ToString()); }
+			get { return _value; }
+		}
+
 		public ESString(string value) {
 			_value = value;
 		}
 
 		public override string ToString() {
 			return string.Format("ESString Value: {0}", _value);
-		}
-
-		public int Count {
-			get { return _value.Length; }
 		}
 
 		public override bool ToBoolean() {
@@ -36,21 +51,6 @@ namespace Easily.ES {
 
 		public IEnumerator GetEnumerator() {
 			throw new InvalidOperationException(ToString());
-		}
-
-		int IESInteger.Value {
-			set { throw new InvalidOperationException(ToString()); }
-			get { return ToInt32(_value); }
-		}
-
-		float IESNumber.Value {
-			set { throw new InvalidOperationException(ToString()); }
-			get { return ToFloat(_value); }
-		}
-
-		public string Value {
-			set { throw new InvalidOperationException(ToString()); }
-			get { return _value; }
 		}
 
 	}

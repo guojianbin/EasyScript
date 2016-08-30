@@ -13,15 +13,6 @@ namespace Easily.ES {
 			_value = value;
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_value.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionNegate Value: {0}", _value);
-		}
-
 		public bool ToBoolean(ESContext context) {
 			return Execute(context).ToBoolean();
 		}
@@ -36,6 +27,15 @@ namespace Easily.ES {
 
 		public override void Checking() {
 			_value.Checking();
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_value.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionNegate Value: {0}", _value);
 		}
 
 	}

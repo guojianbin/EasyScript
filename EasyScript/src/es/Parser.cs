@@ -33,7 +33,7 @@ namespace Easily.ES {
 			});
 		}
 
-		public Module Execute(IEnumerable<Token> tokens) {
+		public Module Parse(IEnumerable<Token> tokens) {
 			var list = ESUtility.Parse(tokens);
 			Parse(list);
 			return new Module(new ExpressionLL(list));
@@ -55,9 +55,9 @@ namespace Easily.ES {
 
 		private void Parse(ISyntax[] syntaxs, List<IExpression> list) {
 			for (var pos = 0; pos < list.Count; pos++) {
-				for (var j = 0; j < syntaxs.Length; j++) {
-					if (syntaxs[j].IsMatch(list, pos)) {
-						syntaxs[j].Parse(this, list, ref pos);
+				foreach (var syntax in syntaxs) {
+					if (syntax.IsMatch(list, pos)) {
+						syntax.Parse(this, list, ref pos);
 						break;
 					}
 				}

@@ -16,20 +16,6 @@ namespace Easily.ES {
 			_value2 = value2;
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_value1.Dispose();
-			_value2.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionMath Value1: {0}, Value2: {1}", _value1, _value2);
-		}
-
-		public bool ToBoolean(ESContext context) {
-			return Execute(context).ToBoolean();
-		}
-
 		public override IESObject Execute(ESContext context) {
 			return GetValue(context);
 		}
@@ -41,6 +27,20 @@ namespace Easily.ES {
 		public override void Checking() {
 			_value1.Checking();
 			_value2.Checking();
+		}
+
+		public bool ToBoolean(ESContext context) {
+			return Execute(context).ToBoolean();
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_value1.Dispose();
+			_value2.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionMath Value1: {0}, Value2: {1}", _value1, _value2);
 		}
 
 	}

@@ -9,22 +9,6 @@ namespace Easily.ES {
 
 		private float _value;
 
-		public ESNumber(object value) : this(ToFloat(value)) {
-			// ignored
-		}
-
-		public ESNumber(string value) : this(ToFloat(value)) {
-			// ignored
-		}
-
-		public ESNumber(float value) {
-			_value = value;
-		}
-
-		public override string ToString() {
-			return string.Format("ESNumber Value: {0}", _value);
-		}
-
 		int IESInteger.Value {
 			set { _value = value; }
 			get { return ToInt32(_value); }
@@ -38,6 +22,18 @@ namespace Easily.ES {
 		string IESString.Value {
 			set { _value = ToFloat(value); }
 			get { return ToString(_value); }
+		}
+
+		public ESNumber(object value) : this(ToFloat(value)) {
+			// ignored
+		}
+
+		public ESNumber(string value) : this(ToFloat(value)) {
+			// ignored
+		}
+
+		public ESNumber(float value) {
+			_value = value;
 		}
 
 		public override object ToObject() {
@@ -54,6 +50,10 @@ namespace Easily.ES {
 
 		public override IESObject Clone() {
 			return new ESNumber(_value);
+		}
+
+		public override string ToString() {
+			return string.Format("ESNumber Value: {0}", _value);
 		}
 
 	}

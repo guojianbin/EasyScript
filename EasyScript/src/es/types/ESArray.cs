@@ -16,8 +16,26 @@ namespace Easily.ES {
 			get { return _list; }
 		}
 
+		public int Count {
+			get { return _list.Count; }
+		}
+
 		public object Target {
 			get { return _list; }
+		}
+
+		public bool IsReadOnly {
+			get { return false; }
+		}
+
+		IESObject IESIndex.this[IESObject index] {
+			get { return this[index.GetInteger()]; }
+			set { this[index.GetInteger()] = value; }
+		}
+
+		public IESObject this[int index] {
+			get { return _list[index]; }
+			set { _list[index] = value; }
 		}
 
 		public ESArray() {
@@ -76,19 +94,6 @@ namespace Easily.ES {
 			return _list[index].Cast<ESArray>();
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_list.Clear();
-		}
-
-		public override string ToString() {
-			return string.Format("ESArray Count: {0}", Count);
-		}
-
-		public int Count {
-			get { return _list.Count; }
-		}
-
 		public override bool ToBoolean() {
 			return Count != 0;
 		}
@@ -99,20 +104,6 @@ namespace Easily.ES {
 
 		public override IESObject GetProperty(string name) {
 			return ESUtility.GetProperty(this, name);
-		}
-
-		IESObject IESIndex.this[IESObject index] {
-			get { return this[index.GetInteger()]; }
-			set { this[index.GetInteger()] = value; }
-		}
-
-		public bool IsReadOnly {
-			get { return false; }
-		}
-
-		public IESObject this[int index] {
-			get { return _list[index]; }
-			set { _list[index] = value; }
 		}
 
 		public void Add(IESObject item) {
@@ -153,6 +144,15 @@ namespace Easily.ES {
 
 		public void CopyTo(IESObject[] array, int arrayIndex) {
 			throw new InvalidOperationException(ToString());
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_list.Clear();
+		}
+
+		public override string ToString() {
+			return string.Format("ESArray Count: {0}", Count);
 		}
 
 	}

@@ -1,4 +1,5 @@
 ﻿using Easily.Bases;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -11,6 +12,10 @@ namespace Easily.ES {
 		private readonly IExpression _entry;
 		private readonly string _name;
 
+		public int Count {
+			get { return _args.Count; }
+		}
+
 		public ExpressionFunc(ExpressionStringArgs args, IExpression entry) : this("anonymous_" + NewUID(), args, entry) {
 			// ignored
 		}
@@ -19,19 +24,6 @@ namespace Easily.ES {
 			_name = name;
 			_args = args;
 			_entry = entry;
-		}
-
-		protected override void OnDispose() {
-			base.OnDispose();
-			_entry.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionFunc Name: {0}, Args: {1}, Entry: {2}", _name, _args.Count, _entry);
-		}
-
-		public int Count {
-			get { return _args.Count; }
 		}
 
 		public override IESObject Execute(ESContext context) {
@@ -52,6 +44,15 @@ namespace Easily.ES {
 			var func = new ESFunction(context, this);
 			context.UpdateValue(_name, func);
 			return func;
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_entry.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionFunc Name: {0}, Args: {1}, Entry: {2}", _name, _args.Count, _entry);
 		}
 
 	}

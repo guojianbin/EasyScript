@@ -10,18 +10,13 @@ namespace Easily.ES {
 		private readonly Func<object> _getValue;
 		private readonly Action<object> _setValue;
 
+		public object Target {
+			get { return _value; }
+		}
+
 		private object _value {
 			get { return _getValue(); }
 			set { _setValue(value); }
-		}
-
-		public ESProxy(Func<object> getValue, Action<object> setValue) {
-			_getValue = getValue;
-			_setValue = setValue;
-		}
-
-		public override string ToString() {
-			return string.Format("ESProxy Value: {0}", _value);
 		}
 
 		int IESInteger.Value {
@@ -34,8 +29,14 @@ namespace Easily.ES {
 			get { return ToFloat(_value); }
 		}
 
-		public object Target {
-			get { return _value; }
+		string IESString.Value {
+			set { _value = value; }
+			get { return ToString(_value); }
+		}
+
+		public ESProxy(Func<object> getValue, Action<object> setValue) {
+			_getValue = getValue;
+			_setValue = setValue;
 		}
 
 		public void SetValue(IESObject value) {
@@ -50,11 +51,6 @@ namespace Easily.ES {
 			return ToVirtual(_value);
 		}
 
-		string IESString.Value {
-			set { _value = value; }
-			get { return ToString(_value); }
-		}
-
 		public override bool ToBoolean() {
 			return _value != null;
 		}
@@ -65,6 +61,10 @@ namespace Easily.ES {
 
 		public override IESObject GetProperty(string name) {
 			return GetProperty(_value, name);
+		}
+
+		public override string ToString() {
+			return string.Format("ESProxy Value: {0}", _value);
 		}
 
 	}

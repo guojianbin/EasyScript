@@ -12,6 +12,7 @@ namespace Easily.Bases {
 
 		private readonly Dictionary<string, IESObject> _objects = new Dictionary<string, IESObject>();
 		private readonly ESContext _parent;
+
 		public bool IsBreak { set; get; }
 		public bool IsReturn { set; get; }
 
@@ -73,6 +74,14 @@ namespace Easily.Bases {
 			_objects.Remove(key);
 		}
 
+		public IEnumerator<KeyValuePair<string, IESObject>> GetEnumerator() {
+			return _objects.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return GetEnumerator();
+		}
+
 		protected override void OnDispose() {
 			base.OnDispose();
 			_objects.Clear();
@@ -80,14 +89,6 @@ namespace Easily.Bases {
 
 		public override string ToString() {
 			return string.Format("ESContext Count: {0}", _objects.Count);
-		}
-
-		public IEnumerator<KeyValuePair<string, IESObject>> GetEnumerator() {
-			return _objects.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator() {
-			return GetEnumerator();
 		}
 
 	}

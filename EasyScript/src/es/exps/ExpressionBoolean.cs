@@ -13,15 +13,6 @@ namespace Easily.ES {
 			_value = new ESBoolean(value);
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_value.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionBoolean Value: {0}", _value);
-		}
-
 		public bool ToBoolean(ESContext context) {
 			return _value.Value;
 		}
@@ -32,6 +23,15 @@ namespace Easily.ES {
 
 		public IESObject GetValue(ESContext context) {
 			return _value;
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_value.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionBoolean Value: {0}", _value);
 		}
 
 	}

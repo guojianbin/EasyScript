@@ -21,16 +21,16 @@ namespace Easily.ES {
 			return New(context, ToVirtuals(args, args.Length));
 		}
 
-		public override string ToString() {
-			return string.Format("ESClass Value: {0}", _value);
-		}
-
 		public IESObject New(ESContext context, IESObject[] args) {
 			return _value.New(context, args);
 		}
 
 		public override IESObject GetProperty(string name) {
 			return GetProperty(_value, name);
+		}
+
+		public override string ToString() {
+			return string.Format("ESClass Value: {0}", _value);
 		}
 
 	}

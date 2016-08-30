@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Easily.ES {
 
+	/// <summary>
+	/// @author Easily
+	/// </summary>
 	public class ExpressionTableArgs : Expression, IEnumerable<KeyValuePair<string, IExpressionRight>> {
 
 		private readonly Dictionary<string, IExpressionRight> _args;

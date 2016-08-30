@@ -23,16 +23,6 @@ namespace Easily.ES {
 			_rvalue = rvalue;
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_lvalue.Dispose();
-			_rvalue.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionBind Left: {0}, Right: {1}", _lvalue, _rvalue);
-		}
-
 		public override IESObject Execute(ESContext context) {
 			return GetValue(context);
 		}
@@ -46,6 +36,16 @@ namespace Easily.ES {
 		public override void Checking() {
 			_lvalue.Checking();
 			_rvalue.Checking();
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_lvalue.Dispose();
+			_rvalue.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionBind Left: {0}, Right: {1}", _lvalue, _rvalue);
 		}
 
 	}

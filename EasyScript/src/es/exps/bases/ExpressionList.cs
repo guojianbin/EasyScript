@@ -13,12 +13,28 @@ namespace Easily.ES {
 
 		private readonly List<IExpression> _list;
 
+		public int Count {
+			get { return _list.Count; }
+		}
+
+		public IExpression this[int index] {
+			get { return _list[index]; }
+		}
+
 		public ExpressionList(List<IExpression> list) {
 			_list = list;
 		}
 
 		public static implicit operator List<IExpression>(ExpressionList obj) {
 			return obj._list;
+		}
+
+		public override IESObject Execute(ESContext context) {
+			throw new InvalidOperationException();
+		}
+
+		public override void Checking() {
+			_list.ForEach(Checking);
 		}
 
 		public IExpression Unbound() {
@@ -45,22 +61,6 @@ namespace Easily.ES {
 
 		public override string ToString() {
 			return string.Format("ExpressionList List: {0}", Count);
-		}
-
-		public int Count {
-			get { return _list.Count; }
-		}
-
-		public IExpression this[int index] {
-			get { return _list[index]; }
-		}
-
-		public override IESObject Execute(ESContext context) {
-			throw new InvalidOperationException();
-		}
-
-		public override void Checking() {
-			_list.ForEach(Checking);
 		}
 
 		public IEnumerator<IExpression> GetEnumerator() {

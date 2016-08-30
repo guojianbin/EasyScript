@@ -20,6 +20,14 @@ namespace Easily.ES {
 			return context;
 		}
 
+		public IESObject Execute(ESContext context) {
+			return _list.Execute(context);
+		}
+
+		public void Checking() {
+			_list.Checking();
+		}
+
 		protected override void OnDispose() {
 			base.OnDispose();
 			_list.Dispose();
@@ -27,14 +35,6 @@ namespace Easily.ES {
 
 		public override string ToString() {
 			return string.Format("Module List: {0}", _list.Count);
-		}
-
-		public IESObject Execute(ESContext context) {
-			return _list.Execute(context);
-		}
-
-		public void Checking() {
-			_list.Checking();
 		}
 
 	}

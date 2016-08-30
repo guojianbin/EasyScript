@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Easily.Bases;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -14,24 +15,20 @@ namespace Easily.ES {
 			_args = args;
 		}
 
-		public override string ToString() {
-			return string.Format("ExpressionArray List: {0}", _args.Count);
-		}
-
 		public override IESObject Execute(ESContext context) {
 			return GetValue(context);
 		}
 
 		public IESObject GetValue(ESContext context) {
-			if (_args.Count == 0) {
-				return new ESArray();
-			} else {
-				return new ESArray(_args.Select(t => t.Execute(context)));
-			}
+			return _args.Count == 0 ? new ESArray() : new ESArray(_args.Select(t => t.Execute(context)));
 		}
 
 		public override void Checking() {
 			_args.ForEach(Checking);
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionArray List: {0}", _args.Count);
 		}
 
 	}

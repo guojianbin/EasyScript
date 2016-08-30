@@ -18,11 +18,7 @@ namespace Easily.ES {
 		}
 
 		public override IESObject Execute(ESContext context) {
-			if (_cond.ToBoolean(context)) {
-				return _branch1.Execute(context);
-			} else {
-				return _branch2.Execute(context);
-			}
+			return _cond.ToBoolean(context) ? _branch1.Execute(context) : _branch2.Execute(context);
 		}
 
 		public override void Checking() {

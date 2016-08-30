@@ -1,4 +1,5 @@
 using Easily.Bases;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -13,11 +14,6 @@ namespace Easily.ES {
 		public ExpressionClass(string name, IExpression entry) {
 			_name = name;
 			_entry = entry;
-		}
-
-		protected override void OnDispose() {
-			base.OnDispose();
-			_entry.Dispose();
 		}
 
 		public override IESObject Execute(ESContext context) {
@@ -38,6 +34,11 @@ namespace Easily.ES {
 
 		public override void Checking() {
 			_entry.Checking();
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_entry.Dispose();
 		}
 
 	}

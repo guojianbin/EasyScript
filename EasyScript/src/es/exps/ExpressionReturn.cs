@@ -19,11 +19,7 @@ namespace Easily.ES {
 
 		public override IESObject Execute(ESContext context) {
 			context.IsReturn = true;
-			if (_value != null) {
-				return _value.GetValue(context);
-			} else {
-				return ESDefault.Value;
-			}
+			return _value == null ? ESDefault.Value : _value.GetValue(context);
 		}
 
 		public override void Checking() {

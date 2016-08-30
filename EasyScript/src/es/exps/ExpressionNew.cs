@@ -1,4 +1,5 @@
 ﻿using Easily.Bases;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -15,10 +16,6 @@ namespace Easily.ES {
 			_args = args;
 		}
 
-		public override string ToString() {
-			return string.Format("ExpressionNew Name: {0}, Args: {1}", _name, _args.Count);
-		}
-
 		public bool ToBoolean(ESContext context) {
 			return Execute(context).ToBoolean();
 		}
@@ -33,6 +30,10 @@ namespace Easily.ES {
 
 		public override void Checking() {
 			_args.ForEach(Checking);
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionNew Name: {0}, Args: {1}", _name, _args.Count);
 		}
 
 	}

@@ -49,55 +49,13 @@
     <Compile Include="src\base\EasyDefault.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\base\EasyGroup.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\EasyMachine.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\EasyObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\EasyRedis.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\EasyRound.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\EasyToggle.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\IEasyObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\IIdentifier.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="src\base\Observer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\base\ThrowHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\ds\BinaryHeap.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\ds\EasyBag.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\ds\EasyList.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\ds\EasyMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\ds\EasyQueue.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\ds\Struct.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\ds\SynchronizedQueue.cs">
+    <Compile Include="src\base\Struct.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\es\EVM.cs">
@@ -475,25 +433,10 @@
     <Compile Include="src\es\utils\ESUtility.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\events\EventDispatcher.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\events\EventProxy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\tasks\AsyncTask.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\tasks\Task.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="src\utils\Extensions.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\utils\StringUtils.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\utils\XNumber.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

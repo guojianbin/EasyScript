@@ -11,15 +11,6 @@ namespace Easily.ES {
 
 		private readonly Dictionary<string, IESObject> _dict = new Dictionary<string, IESObject>();
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_dict.Clear();
-		}
-
-		public override string ToString() {
-			return string.Format("ESInstance Count: {0}", Count);
-		}
-
 		public ICollection<string> Keys {
 			get { return _dict.Keys; }
 		}
@@ -30,6 +21,15 @@ namespace Easily.ES {
 
 		public bool IsReadOnly {
 			get { return false; }
+		}
+
+		public int Count {
+			get { return _dict.Count; }
+		}
+
+		public IESObject this[string key] {
+			get { return _dict[key]; }
+			set { _dict[key] = value; }
 		}
 
 		public bool TryGetValue(string key, out IESObject value) {
@@ -76,15 +76,6 @@ namespace Easily.ES {
 			return GetEnumerator();
 		}
 
-		public int Count {
-			get { return _dict.Count; }
-		}
-
-		public IESObject this[string key] {
-			get { return _dict[key]; }
-			set { _dict[key] = value; }
-		}
-
 		public override bool ToBoolean() {
 			return Count > 0;
 		}
@@ -95,6 +86,15 @@ namespace Easily.ES {
 
 		public override IESObject GetProperty(string name) {
 			return new ESKey(this, name);
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_dict.Clear();
+		}
+
+		public override string ToString() {
+			return string.Format("ESInstance Count: {0}", Count);
 		}
 
 	}

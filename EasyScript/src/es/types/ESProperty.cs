@@ -12,21 +12,8 @@ namespace Easily.ES {
 		private readonly object _target;
 		private readonly PropertyInfo _value;
 
-		public ESProperty(PropertyInfo value) {
-			_value = value;
-		}
-
-		public ESProperty(object target, PropertyInfo value) {
-			_target = target;
-			_value = value;
-		}
-
-		public override string ToString() {
-			return string.Format("ESProperty Target: {0}, Value: {1}", _target, _value);
-		}
-
-		public IEnumerator GetEnumerator() {
-			return ToObject<IEnumerable>().GetEnumerator();
+		public object Target {
+			get { return _target; }
 		}
 
 		int IESInteger.Value {
@@ -39,8 +26,22 @@ namespace Easily.ES {
 			get { return ToFloat(ToObject()); }
 		}
 
-		public object Target {
-			get { return _target; }
+		string IESString.Value {
+			set { SetValue(value); }
+			get { return ToString(ToObject()); }
+		}
+
+		public ESProperty(PropertyInfo value) {
+			_value = value;
+		}
+
+		public ESProperty(object target, PropertyInfo value) {
+			_target = target;
+			_value = value;
+		}
+
+		public IEnumerator GetEnumerator() {
+			return ToObject<IEnumerable>().GetEnumerator();
 		}
 
 		public void SetValue(IESObject value) {
@@ -75,9 +76,8 @@ namespace Easily.ES {
 			return ToObject() != null;
 		}
 
-		string IESString.Value {
-			set { SetValue(value); }
-			get { return ToString(ToObject()); }
+		public override string ToString() {
+			return string.Format("ESProperty Target: {0}, Value: {1}", _target, _value);
 		}
 
 	}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -9,6 +10,10 @@ namespace Easily.ES {
 
 		private readonly int _count;
 		private readonly Delegate _value;
+
+		public object Target {
+			get { return null; }
+		}
 
 		public ESDelegate(Action func) : this((Delegate)func) {
 			// ignored
@@ -23,14 +28,6 @@ namespace Easily.ES {
 			_count = count;
 		}
 
-		public override string ToString() {
-			return string.Format("ESDelegate Target: {0}, Method: {1}", _value.Target, _value.Method);
-		}
-
-		public object Target {
-			get { return null; }
-		}
-
 		public IESObject Invoke(IESObject[] args) {
 			try {
 				return ToVirtual(_value.DynamicInvoke(ToObjects(args, _count)));
@@ -41,6 +38,10 @@ namespace Easily.ES {
 
 		public override bool ToBoolean() {
 			return _value != null;
+		}
+
+		public override string ToString() {
+			return string.Format("ESDelegate Target: {0}, Method: {1}", _value.Target, _value.Method);
 		}
 
 	}

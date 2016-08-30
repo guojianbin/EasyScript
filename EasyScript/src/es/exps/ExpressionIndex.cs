@@ -15,16 +15,6 @@ namespace Easily.ES {
 			_value = value;
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_target.Dispose();
-			_value.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionIndex Target: {0}, Name: {1}", _target, _value);
-		}
-
 		public void SetValue(ESContext context, IESObject value) {
 			_target.GetValue<IESIndex>(context)[_value.GetValue(context)] = value;
 		}
@@ -44,6 +34,16 @@ namespace Easily.ES {
 		public override void Checking() {
 			_target.Checking();
 			_value.Checking();
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_target.Dispose();
+			_value.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionIndex Target: {0}, Name: {1}", _target, _value);
 		}
 
 	}

@@ -11,6 +11,10 @@ namespace Easily.ES {
 		private readonly int _count;
 		private readonly IExpressionFunc _value;
 
+		public object Target {
+			get { return null; }
+		}
+
 		public ESFunction(ESContext context, IExpressionFunc value) : this(context, value, value.Count) {
 			// ignored
 		}
@@ -29,20 +33,16 @@ namespace Easily.ES {
 			return Invoke(ToVirtuals(args, _count));
 		}
 
-		public override string ToString() {
-			return string.Format("ESFunction Value: {0}, Count: {1}", _value, _count);
-		}
-
-		public object Target {
-			get { return null; }
-		}
-
 		public IESObject Invoke(IESObject[] args) {
 			return _value.Invoke(_context, args);
 		}
 
 		public override IESObject GetProperty(string name) {
 			return GetProperty(_value, name);
+		}
+
+		public override string ToString() {
+			return string.Format("ESFunction Value: {0}, Count: {1}", _value, _count);
 		}
 
 	}

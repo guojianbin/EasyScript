@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -16,23 +17,48 @@ namespace Easily.ES {
 			get { return _dict; }
 		}
 
+		public int Count {
+			get { return _dict.Count; }
+		}
+
+		public ICollection<string> Keys {
+			get { return _dict.Keys; }
+		}
+
+		public ICollection<IESObject> Values {
+			get { return _dict.Values; }
+		}
+
+		public bool IsReadOnly {
+			get { return false; }
+		}
+
 		public IESObject this[int key] {
 			get { return _dict[key.ToString()]; }
 			set { _dict[key.ToString()] = value; }
+		}
+
+		public IESObject this[IESObject key] {
+			get { return this[key.GetString()]; }
+			set { this[key.GetString()] = value; }
+		}
+
+		public IESObject this[string key] {
+			get { return _dict[key]; }
+			set { _dict[key] = value; }
 		}
 
 		public ESTable() {
 			_dict = new Dictionary<string, IESObject>();
 		}
 
-		public ESTable(Dictionary<string, IESObject> dict) {
+		public ESTable(IDictionary<string, IESObject> dict) {
 			_dict = new Dictionary<string, IESObject>(dict);
 		}
 
 		public ESTable(IEnumerable dict) {
 			_dict = new Dictionary<string, IESObject>();
-			var list = dict.Cast<object>();
-			list.ForEach(t => _dict.Add(ToString(GetValue(t, "Key")), ToVirtual(GetValue(t, "Value"))));
+			dict.Cast<object>().ForEach(t => _dict.Add(ToString(GetValue(t, "Key")), ToVirtual(GetValue(t, "Value"))));
 		}
 
 		public void Add(string key, object obj) {
@@ -79,27 +105,6 @@ namespace Easily.ES {
 			return _dict[key].Cast<ESArray>();
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_dict.Clear();
-		}
-
-		public override string ToString() {
-			return string.Format("ESTable Count: {0}", Count);
-		}
-
-		public ICollection<string> Keys {
-			get { return _dict.Keys; }
-		}
-
-		public ICollection<IESObject> Values {
-			get { return _dict.Values; }
-		}
-
-		public bool IsReadOnly {
-			get { return false; }
-		}
-
 		public bool TryGetValue(string key, out IESObject value) {
 			return _dict.TryGetValue(key, out value);
 		}
@@ -144,20 +149,6 @@ namespace Easily.ES {
 			return GetEnumerator();
 		}
 
-		public IESObject this[IESObject key] {
-			get { return this[key.GetString()]; }
-			set { this[key.GetString()] = value; }
-		}
-
-		public int Count {
-			get { return _dict.Count; }
-		}
-
-		public IESObject this[string key] {
-			get { return _dict[key]; }
-			set { _dict[key] = value; }
-		}
-
 		public override bool ToBoolean() {
 			return Count > 0;
 		}
@@ -168,6 +159,15 @@ namespace Easily.ES {
 
 		public override IESObject GetProperty(string name) {
 			return ESUtility.GetProperty(this, name);
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_dict.Clear();
+		}
+
+		public override string ToString() {
+			return string.Format("ESTable Count: {0}", Count);
 		}
 
 	}

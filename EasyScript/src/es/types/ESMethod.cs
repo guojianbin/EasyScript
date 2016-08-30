@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -11,6 +12,10 @@ namespace Easily.ES {
 		private readonly int _count;
 		private readonly object _target;
 		private readonly MethodInfo _value;
+
+		public object Target {
+			get { return _target; }
+		}
 
 		public ESMethod(MethodInfo value) : this(null, value) {
 			// ignored
@@ -26,14 +31,6 @@ namespace Easily.ES {
 			_count = count;
 		}
 
-		public override string ToString() {
-			return string.Format("ESMethod Target: {0}, Value: {1}", _target, _value);
-		}
-
-		public object Target {
-			get { return _target; }
-		}
-
 		public IESObject Invoke(IESObject[] args) {
 			try {
 				return ToVirtual(_value.Invoke(_target, ToObjects(args, _count)));
@@ -44,6 +41,10 @@ namespace Easily.ES {
 
 		public override bool ToBoolean() {
 			return _value != null;
+		}
+
+		public override string ToString() {
+			return string.Format("ESMethod Target: {0}, Value: {1}", _target, _value);
 		}
 
 	}

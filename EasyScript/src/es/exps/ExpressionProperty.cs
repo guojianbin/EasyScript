@@ -19,16 +19,6 @@ namespace Easily.ES {
 			return Execute(context).Cast<IESProperty>();
 		}
 
-		protected override void OnDispose() {
-			base.OnDispose();
-			_target.Dispose();
-			_property.Dispose();
-		}
-
-		public override string ToString() {
-			return string.Format("ExpressionProperty Target: {0}, Name: {1}", _target, _property);
-		}
-
 		public void SetValue(ESContext context, IESObject value) {
 			GetProperty(context).SetValue(value);
 		}
@@ -48,6 +38,16 @@ namespace Easily.ES {
 		public override void Checking() {
 			_target.Checking();
 			_property.Checking();
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_target.Dispose();
+			_property.Dispose();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionProperty Target: {0}, Name: {1}", _target, _property);
 		}
 
 	}

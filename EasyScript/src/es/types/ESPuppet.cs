@@ -10,18 +10,13 @@ namespace Easily.ES {
 		private readonly Func<object, object> _convert;
 		private readonly IESProperty _property;
 
+		public object Target {
+			get { return _value; }
+		}
+
 		private object _value {
 			get { return _property.ToObject(); }
 			set { _property.SetValue(_convert(value)); }
-		}
-
-		public ESPuppet(object target, string name) {
-			_property = GetProperty(target, name).Cast<IESProperty>();
-			_convert = ESUtility.GetConverter(ESUtility.GetType(target, name));
-		}
-
-		public override string ToString() {
-			return string.Format("ESPuppet Value: {0}", _value);
 		}
 
 		int IESInteger.Value {
@@ -34,8 +29,14 @@ namespace Easily.ES {
 			get { return ToFloat(_value); }
 		}
 
-		public object Target {
-			get { return _value; }
+		string IESString.Value {
+			set { _value = value; }
+			get { return ToString(_value); }
+		}
+
+		public ESPuppet(object target, string name) {
+			_property = GetProperty(target, name).Cast<IESProperty>();
+			_convert = ESUtility.GetConverter(ESUtility.GetType(target, name));
 		}
 
 		public void SetValue(IESObject value) {
@@ -50,11 +51,6 @@ namespace Easily.ES {
 			return ToVirtual(_value);
 		}
 
-		string IESString.Value {
-			set { _value = value; }
-			get { return ToString(_value); }
-		}
-
 		public override bool ToBoolean() {
 			return _value != null;
 		}
@@ -65,6 +61,10 @@ namespace Easily.ES {
 
 		public override IESObject GetProperty(string name) {
 			return GetProperty(_value, name);
+		}
+
+		public override string ToString() {
+			return string.Format("ESPuppet Value: {0}", _value);
 		}
 
 	}

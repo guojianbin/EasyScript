@@ -10,43 +10,43 @@ namespace Easily.ES {
 	/// </summary>
 	internal enum TokenType {
 
-		WORD = 1, // \w
-		NUM, // \d
-		STR, // string
-		COMM, // comment
+		WORD = 1,		// \w
+		NUM,			// \d
+		STR,			// string
+		COMM,			// comment
 		LS,
 		RS,
 		LM,
 		RM,
 		LB,
-		RB, // (),[],{}
-		SS,
-		MM,
-		BB, // (),[],{}
-		EQ,
-		LT,
-		GT,
-		EX, // =,<>,!
-		CMA,
-		DOT,
-		COL, // ,.:
+		RB,
+		SS,				// ()
+		MM,				// []
+		BB,				// {}
+		EQ,				// =
+		LT,				// <
+		GT,				// >
+		EX,				// !
+		CMA,			// ,
+		DOT,			// .
+		COL,			// :
 		ADD,
 		SUB,
 		MUL,
-		DIV, // +-*/
+		DIV, 
 		FUNC,
 		CLASS,
-		NEW, // func,class,new
+		NEW, 
 		FOR,
 		FOREACH,
-		IN, // for,foreach,in
-		WHILE, // while
+		IN, 
+		WHILE, 
 		TRUE,
-		FALSE, // true,false
+		FALSE, 
 		IF,
-		ELSE, // if else
-		BREAK, // break
-		RET // return
+		ELSE, 
+		BREAK,
+		RET 
 
 	}
 

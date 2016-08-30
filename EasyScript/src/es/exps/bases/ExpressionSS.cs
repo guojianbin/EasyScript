@@ -13,16 +13,16 @@ namespace Easily.ES {
 			// ignored
 		}
 
-		public override string ToString() {
-			return string.Format("ExpressionSS List: {0}", Count);
-		}
-
 		public IESObject GetValue(ESContext context) {
 			if (Count == 1) {
 				return this[0].Execute(context);
 			} else {
 				throw new InvalidOperationException("Count not eq 1");
 			}
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionSS List: {0}", Count);
 		}
 
 	}

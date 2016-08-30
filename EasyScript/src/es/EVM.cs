@@ -64,7 +64,7 @@ namespace Easily.ES {
 		}
 
 		public Module Compile(string script) {
-			return _parser.Execute(Scanner.Parse(script));
+			return _parser.Parse(Scanner.Parse(script));
 		}
 
 		protected override void OnDispose() {

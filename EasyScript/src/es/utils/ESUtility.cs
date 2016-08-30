@@ -201,27 +201,19 @@ namespace Easily.ES {
 		}
 
 		public static IESObject[] ToVirtuals(object[] objs) {
-			if (objs == null) {
-				return _0Vtrs;
-			} else {
-				return ToVirtuals(objs, objs.Length);
-			}
+			return objs == null ? _0Vtrs : ToVirtuals(objs, objs.Length);
 		}
 
 		public static IESObject[] ToVirtuals<T>(IEnumerable<T> list) {
-			if (list == null) {
-				return _0Vtrs;
-			} else {
-				return ToVirtuals(list.Cast<object>().ToArray());
-			}
+			return list == null ? _0Vtrs : ToVirtuals(list.Cast<object>().ToArray());
 		}
 
 		public static IESObject[] ToVirtuals(IEnumerable list) {
-			if (list == null) {
-				return _0Vtrs;
-			} else {
-				return ToVirtuals(list.Cast<object>());
-			}
+			return list == null ? _0Vtrs : ToVirtuals(list.Cast<object>());
+		}
+
+		public static IESObject[] ToArray(ESContext context, List<IExpressionRight> _args) {
+			return _args.Count == 0 ? _0Vtrs : _args.Select(t => t.Execute(context)).ToArray();
 		}
 
 		public static object[] ToObjects(IESObject[] objs, int count) {
@@ -237,14 +229,6 @@ namespace Easily.ES {
 				arr[i] = objs[i].ToObject();
 			}
 			return arr;
-		}
-
-		public static IESObject[] ToArray(ESContext context, List<IExpressionRight> _args) {
-			if (_args.Count == 0) {
-				return _0Vtrs;
-			} else {
-				return _args.Select(t => t.Execute(context)).ToArray();
-			}
 		}
 
 		public static IESObject GetProperty(ESArray array, string name) {
