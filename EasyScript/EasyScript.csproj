@@ -43,99 +43,459 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\base\Disposable.cs" />
-    <Compile Include="src\base\EasyBox.cs" />
-    <Compile Include="src\base\EasyDefault.cs" />
-    <Compile Include="src\base\EasyGroup.cs" />
-    <Compile Include="src\base\EasyMachine.cs" />
-    <Compile Include="src\base\EasyObject.cs" />
-    <Compile Include="src\base\EasyRedis.cs" />
-    <Compile Include="src\base\EasyRound.cs" />
-    <Compile Include="src\base\EasyToggle.cs" />
-    <Compile Include="src\base\IEasyObject.cs" />
-    <Compile Include="src\base\IIdentifier.cs" />
-    <Compile Include="src\base\Observer.cs" />
-    <Compile Include="src\base\ThrowHelper.cs" />
-    <Compile Include="src\ds\BinaryHeap.cs" />
-    <Compile Include="src\ds\EasyBag.cs" />
-    <Compile Include="src\ds\EasyList.cs" />
-    <Compile Include="src\ds\EasyMap.cs" />
-    <Compile Include="src\ds\EasyQueue.cs" />
-    <Compile Include="src\ds\Struct.cs" />
-    <Compile Include="src\ds\SynchronizedQueue.cs" />
-    <Compile Include="src\es\EVM.cs" />
-    <Compile Include="src\es\expressions\ArrayExpression.cs" />
-    <Compile Include="src\es\expressions\AssignExpression.cs" />
-    <Compile Include="src\es\expressions\bases\ClassExpression.cs" />
-    <Compile Include="src\es\expressions\bases\ESDomain.cs" />
-    <Compile Include="src\es\expressions\bases\ESMarker.cs" />
-    <Compile Include="src\es\expressions\bases\Expression.cs" />
-    <Compile Include="src\es\expressions\bases\FuncExpression.cs" />
-    <Compile Include="src\es\expressions\bases\IExpression.cs" />
-    <Compile Include="src\es\expressions\bases\ListExpression.cs" />
-    <Compile Include="src\es\expressions\BooleanExpression.cs" />
-    <Compile Include="src\es\expressions\BreakExpression.cs" />
-    <Compile Include="src\es\expressions\ctrls\ForEachExpression.cs" />
-    <Compile Include="src\es\expressions\ctrls\ForExpression.cs" />
-    <Compile Include="src\es\expressions\ctrls\IfElseExpression.cs" />
-    <Compile Include="src\es\expressions\ctrls\IfExpression.cs" />
-    <Compile Include="src\es\expressions\ctrls\WhileExpression.cs" />
-    <Compile Include="src\es\expressions\IndexExpression.cs" />
-    <Compile Include="src\es\expressions\InvokeExpression.cs" />
-    <Compile Include="src\es\expressions\logics\EQExpression.cs" />
-    <Compile Include="src\es\expressions\logics\GEExpression.cs" />
-    <Compile Include="src\es\expressions\logics\GTExpression.cs" />
-    <Compile Include="src\es\expressions\logics\LEExpression.cs" />
-    <Compile Include="src\es\expressions\logics\LogicExpression.cs" />
-    <Compile Include="src\es\expressions\logics\LTExpression.cs" />
-    <Compile Include="src\es\expressions\logics\NEQExpression.cs" />
-    <Compile Include="src\es\expressions\logics\NotExpression.cs" />
-    <Compile Include="src\es\expressions\maths\DivExpression.cs" />
-    <Compile Include="src\es\expressions\maths\MathExpression.cs" />
-    <Compile Include="src\es\expressions\maths\MulExpression.cs" />
-    <Compile Include="src\es\expressions\maths\NegativeExpression.cs" />
-    <Compile Include="src\es\expressions\maths\PlusExpression.cs" />
-    <Compile Include="src\es\expressions\maths\SubExpression.cs" />
-    <Compile Include="src\es\expressions\NumberExpression.cs" />
-    <Compile Include="src\es\expressions\PropertyExpression.cs" />
-    <Compile Include="src\es\expressions\ReturnExpression.cs" />
-    <Compile Include="src\es\expressions\StringExpression.cs" />
-    <Compile Include="src\es\expressions\TableExpression.cs" />
-    <Compile Include="src\es\expressions\WordExpression.cs" />
-    <Compile Include="src\es\ils\Chunk.cs" />
-    <Compile Include="src\es\ils\EIL.cs" />
-    <Compile Include="src\es\Module.cs" />
-    <Compile Include="src\es\Parser.cs" />
-    <Compile Include="src\es\Scanner.cs" />
-    <Compile Include="src\es\Token.cs" />
-    <Compile Include="src\es\types\ESArray.cs" />
-    <Compile Include="src\es\types\ESBoolean.cs" />
-    <Compile Include="src\es\types\ESClass.cs" />
-    <Compile Include="src\es\types\ESDefault.cs" />
-    <Compile Include="src\es\types\ESDelegate.cs" />
-    <Compile Include="src\es\types\ESField.cs" />
-    <Compile Include="src\es\types\ESFunction.cs" />
-    <Compile Include="src\es\types\ESKey.cs" />
-    <Compile Include="src\es\types\ESMethod.cs" />
-    <Compile Include="src\es\types\ESNumber.cs" />
-    <Compile Include="src\es\types\ESObject.cs" />
-    <Compile Include="src\es\types\ESProperty.cs" />
-    <Compile Include="src\es\types\ESProxy.cs" />
-    <Compile Include="src\es\types\ESPuppet.cs" />
-    <Compile Include="src\es\types\ESSprite.cs" />
-    <Compile Include="src\es\types\ESString.cs" />
-    <Compile Include="src\es\types\ESTable.cs" />
-    <Compile Include="src\es\types\ESType.cs" />
-    <Compile Include="src\es\types\IESObject.cs" />
-    <Compile Include="src\es\utils\ESExtensions.cs" />
-    <Compile Include="src\es\utils\ESLibrary.cs" />
-    <Compile Include="src\es\utils\ESUtility.cs" />
-    <Compile Include="src\events\EventDispatcher.cs" />
-    <Compile Include="src\events\EventProxy.cs" />
-    <Compile Include="src\tasks\ITask.cs" />
-    <Compile Include="src\tasks\Task.cs" />
-    <Compile Include="src\utils\Extensions.cs" />
-    <Compile Include="src\utils\StringUtils.cs" />
+    <Compile Include="src\base\Disposable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyDefault.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyMachine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyRedis.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyRound.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\EasyToggle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\IEasyObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\IIdentifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\Observer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\base\ThrowHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\BinaryHeap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\EasyBag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\EasyList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\EasyMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\EasyQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\Struct.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\ds\SynchronizedQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\EVM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\args\ExpressionArrayArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\args\ExpressionForArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\args\ExpressionStringArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\args\ExpressionTableArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\Expression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionBB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionLL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionMarker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionMM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionSS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\bases\IExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\calcs\ExpressionAdd.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\calcs\ExpressionDivision.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\calcs\ExpressionMath.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\calcs\ExpressionMultiply.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\calcs\ExpressionNegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\calcs\ExpressionSubtract.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionFor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionForEach.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionFunc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionIf.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionIfElse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ctrls\ExpressionWhile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionBind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionBoolean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionBreak.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionIndex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionInvoke.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionNew.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionNumber.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionReturn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionString.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\ExpressionWord.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionEQ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionGE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionGT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionLE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionLT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionNEQ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\exps\logics\ExpressionNot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\ils\Chunk.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\ils\EIL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\Module.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\ParseLevel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\Parser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\Scanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\args\SyntaxArrayArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\args\SyntaxForArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\args\SyntaxStringArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\args\SyntaxTableArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\ISyntax.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\Syntax.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxFunc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxLambda.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxMany.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxNotifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxSS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\calcs\SyntaxAdd.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\calcs\SyntaxDivision.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\calcs\SyntaxMultiply.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\calcs\SyntaxNegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\calcs\SyntaxSubtract.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxFor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxForEach.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxIf.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxIfElse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxIfElseIf.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxIfElseIf2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\ctrls\SyntaxWhile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxEQ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxGE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxGT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxLE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxLT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxNEQ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\logics\SyntaxNot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\ISyntaxMatch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchBody.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchBound.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchCount.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchIfElse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchIfElse2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchSplit.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxBind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxIndex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxInvoke.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxNew.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxReturn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxReturn2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\Token.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESBoolean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESDefault.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESDelegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESField.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESFunction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESInstance.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESKey.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESMethod.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESNumber.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESProxy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESPuppet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESSprite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESString.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\ESType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\types\IESObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\utils\ESExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\utils\ESLibrary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\es\utils\ESUtility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\events\EventDispatcher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\events\EventProxy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\tasks\AsyncTask.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\tasks\Task.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\utils\Extensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\utils\StringUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\utils\XNumber.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

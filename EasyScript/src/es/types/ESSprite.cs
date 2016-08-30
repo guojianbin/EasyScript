@@ -1,65 +1,70 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace Easily.ES {
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public class ESSprite : ESObject, IESEnumerable, IESCollection, IESString, IESNumber, IESInteger {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public sealed class ESSprite : ESObject, IESCollection, IESString, IESNumber, IESInteger {
 
-	private object _value;
+		private object _value;
 
-	public object Value {
-		get { return _value; }
+		public object Value {
+			get { return _value; }
+		}
+
+		public ESSprite(object value) {
+			_value = value;
+		}
+
+		public T GetValue<T>() {
+			try {
+				return (T)_value;
+			} catch (Exception e) {
+				throw new InvalidOperationException(ToString(), e);
+			}
+		}
+
+		public override string ToString() {
+			return string.Format("ESSprite Value: {0}", _value);
+		}
+
+		int IESCollection.Count {
+			get { return GetValue<ICollection>().Count; }
+		}
+
+		public override bool ToBoolean() {
+			return _value != null;
+		}
+
+		public override object ToObject() {
+			return _value;
+		}
+
+		public override IESObject GetProperty(string name) {
+			return GetProperty(_value, name);
+		}
+
+		public IEnumerator GetEnumerator() {
+			return GetValue<IEnumerable>().GetEnumerator();
+		}
+
+		int IESInteger.Value {
+			set { _value = value; }
+			get { return ToInt32(_value); }
+		}
+
+		float IESNumber.Value {
+			set { _value = value; }
+			get { return ToFloat(_value); }
+		}
+
+		string IESString.Value {
+			set { _value = value; }
+			get { return ToString(_value); }
+		}
+
 	}
-
-	int IESInteger.Value {
-		set { _value = value; }
-		get { return ToInt32(_value); }
-	}
-
-	string IESString.Value {
-		set { _value = value; }
-		get { return ToString(_value); }
-	}
-
-	float IESNumber.Value {
-		set { _value = value; }
-		get { return ToFloat(_value); }
-	}
-
-	int IESCollection.Count {
-		get { return GetValue<ICollection>().Count; }
-	}
-
-	public ESSprite(object value) {
-		_value = value;
-	}
-
-	public T GetValue<T>() {
-		return (T)_value;
-	}
-
-	public override bool IsTrue() {
-		return _value != null;
-	}
-
-	public override object ToObject() {
-		return _value;
-	}
-
-	public override IESObject GetProperty(string name) {
-		return GetProperty(_value, name);
-	}
-
-	public IEnumerator GetEnumerator() {
-		return GetValue<IEnumerable>().GetEnumerator();
-	}
-
-	public override string ToString() {
-		return string.Format("ESSprite Value: {0}", _value);
-	}
-
-}
 
 }

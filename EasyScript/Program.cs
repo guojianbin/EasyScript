@@ -3,17 +3,17 @@ using Easily.ES;
 
 static class Program {
 
-	static void Main(string[] args) {
+	static void Main() {
 		var evm = new EVM();
 		evm.SetValue("print", new Action<object>(Console.WriteLine));
 		const string script = @"
-func calc() {
+function calc() {
 	print(2 + 3)
 	print(2 - 3)
 	print(2 * 3)
 	print(2 / 3)
 }
-func ctrl() {
+function ctrl() {
 	n = 1
 	if (n > 0) {
 		print(""n > 0"")
@@ -34,23 +34,23 @@ func ctrl() {
 	print(map[""a""])
 	print(map.b)
 }
-func closure() {
+function closure() {
 	n = 100
-	f = func() {
+	f = function() {
 		n = n + 1
 		return n
 	}
 	for (i = 0, 10)  {
 		print(f())
 	}
-	f2 = func(m) {
+	f2 = function(m) {
 		return f() + m
 	}
 	for (i = 0, 10)  {
 		print(f2(100))
 	}
 }
-func main() {
+function main() {
 	print(""hello world!"")
 	calc()
 	ctrl()

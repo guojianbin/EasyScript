@@ -1,38 +1,38 @@
-﻿using System;
+﻿using Easily.Bases;
 
 namespace Easily.ES {
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public class ESClass : ESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public sealed class ESClass : ESObject, IESClass {
 
-	private readonly Type _value;
+		private readonly IExpressionClass _value;
 
-	public Type Value {
-		get { return _value; }
+		public ESClass(IExpressionClass value) {
+			_value = value;
+		}
+
+		public IESObject New(ESContext context) {
+			return New(context, ToVirtuals(null, 0));
+		}
+
+		public IESObject New(ESContext context, params object[] args) {
+			return New(context, ToVirtuals(args, args.Length));
+		}
+
+		public override string ToString() {
+			return string.Format("ESClass Value: {0}", _value);
+		}
+
+		public IESObject New(ESContext context, IESObject[] args) {
+			return _value.New(context, args);
+		}
+
+		public override IESObject GetProperty(string name) {
+			return GetProperty(_value, name);
+		}
+
 	}
-
-	public ESClass(Type value) {
-		_value = value;
-	}
-
-	public override bool IsTrue() {
-		return _value != null;
-	}
-
-	public override object ToObject() {
-		return _value;
-	}
-
-	public override IESObject GetProperty(string name) {
-		return GetProperty(_value, name);
-	}
-
-	public override string ToString() {
-		return string.Format("ESType Value: {0}", _value);
-	}
-
-}
 
 }

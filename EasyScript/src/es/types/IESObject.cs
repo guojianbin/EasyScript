@@ -1,101 +1,120 @@
 ﻿using System;
 using System.Collections;
+using Easily.Bases;
 
 namespace Easily.ES {
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESObject : IDisposable {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESObject : IDisposable {
 
-	bool IsTrue();
-	object ToObject();
-	IESObject Clone();
-	IESObject GetProperty(string name);
+		bool ToBoolean();
+		object ToObject();
+		IESObject Clone();
+		IESObject GetProperty(string name);
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESInteger : IESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESInteger : IESObject {
 
-	int Value { get; set; }
+		int Value { get; set; }
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESNumber : IESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESNumber : IESObject {
 
-	float Value { get; set; }
+		float Value { get; set; }
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESString : IESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESString : IESObject {
 
-	string Value { get; set; }
+		string Value { get; set; }
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESEnumerable : IESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESEnumerable : IESObject {
 
-	IEnumerator GetEnumerator();
+		IEnumerator GetEnumerator();
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESCollection : IESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESCollection : IESEnumerable {
 
-	int Count { get; }
+		int Count { get; }
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESMember : IESObject {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESTable : IESCollection {
 
-	object Target { get; }
+		IESObject this[string key] { get; set; }
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESFunction : IESMember {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESMember : IESObject {
 
-	IESObject Invoke(IESObject[] args);
+		object Target { get; }
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESIndex : IESMember {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESFunction : IESMember {
 
-	IESObject this[IESObject obj] { get; set; }
+		IESObject Invoke(IESObject[] args);
 
-}
+	}
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public interface IESProperty : IESMember {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESClass : IESObject {
 
-	IESObject GetValue();
-	void SetValue(IESObject value);
-	void SetValue(object value);
+		IESObject New(ESContext context, IESObject[] args);
 
-}
+	}
+
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESIndex : IESObject {
+
+		IESObject this[IESObject obj] { get; set; }
+
+	}
+
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public interface IESProperty : IESMember {
+
+		IESObject GetValue();
+		void SetValue(IESObject value);
+		void SetValue(object value);
+
+	}
 
 }

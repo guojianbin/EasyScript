@@ -1,7 +1,7 @@
 ﻿using System;
 using Engine.DS;
 
-namespace Engine.Bases {
+namespace Easily.Bases {
 
 public class EasyObject : Disposable, IEasyObject {
 

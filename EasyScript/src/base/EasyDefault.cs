@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Engine.Bases {
+namespace Easily.Bases {
 
 
 /// <summary>

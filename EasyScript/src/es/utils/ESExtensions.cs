@@ -1,48 +1,70 @@
-﻿using Engine.Bases;
+﻿using System;
+using System.Collections.Generic;
+using Easily.Bases;
 
 namespace Easily.ES {
 
-/// <summary>
-/// @author Easily
-/// </summary>
-static public class ESExtensions {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public static class ESExtensions {
 
-	public static void Invoke(this IESFunction func) {
-		if (func != null) {
-			func.Invoke(null);
+		public static void Invoke(this IESFunction func) {
+			if (func != null) {
+				func.Invoke(null);
+			}
 		}
-	}
 
-	public static void Invoke(this IESFunction func, params IESObject[] args) {
-		if (func != null) {
-			func.Invoke(args);
+		public static void Invoke(this IESFunction func, params IESObject[] args) {
+			if (func != null) {
+				func.Invoke(args);
+			}
 		}
-	}
 
-	public static T GetValue<T>(this IRightExpression exp, ESDomain domain) {
-		return (T)exp.GetValue(domain);
-	}
+		public static T GetValue<T>(this IExpressionRight exp, ESContext context) {
+			try {
+				return (T)exp.GetValue(context);
+			} catch (Exception e) {
+				throw new InvalidOperationException(exp.ToString(), e);
+			}
+		}
 
-	public static T Cast<T>(this IESObject obj) {
-		return (T)obj;
-	}
+		public static T Cast<T>(this IExpression obj) {
+			try {
+				return (T)obj;
+			} catch (Exception e) {
+				throw new InvalidOperationException(obj.ToString(), e);
+			}
+		}
 
-	public static T Cast<T>(this IExpression obj) {
-		return (T)obj;
-	}
+		public static T Cast<T>(this IESObject obj) {
+			try {
+				return (T)obj;
+			} catch (Exception e) {
+				throw new InvalidOperationException(obj.ToString(), e);
+			}
+		}
 
-	public static string GetString(this IESObject obj) {
-		return obj.Cast<IESString>().Value;
-	}
+		public static bool IsMatch<T>(this IList<IExpression> list, int pos) where T : IExpression {
+			if (pos < list.Count) {
+				return list[pos] is T;
+			} else {
+				return false;
+			}
+		}
 
-	public static int GetInteger(this IESObject obj) {
-		return obj.Cast<IESInteger>().Value;
-	}
+		public static string GetString(this IESObject obj) {
+			return obj.Cast<IESString>().Value;
+		}
 
-	public static float GetNumber(this IESObject obj) {
-		return obj.Cast<IESNumber>().Value;
-	}
+		public static int GetInteger(this IESObject obj) {
+			return obj.Cast<IESInteger>().Value;
+		}
 
-}
+		public static float GetNumber(this IESObject obj) {
+			return obj.Cast<IESNumber>().Value;
+		}
+
+	}
 
 }

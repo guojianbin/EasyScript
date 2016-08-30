@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Engine.Bases {
+namespace Easily.Bases {
 
 public class Observer : Disposable {
 

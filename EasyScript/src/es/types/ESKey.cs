@@ -2,83 +2,83 @@ using System.Collections;
 
 namespace Easily.ES {
 
-/// <summary>
-/// @author Easily
-/// </summary>
-public class ESKey : ESObject, IESIndex, IESProperty, IESString, IESNumber, IESInteger, IESFunction, IESEnumerable {
+	/// <summary>
+	/// @author Easily
+	/// </summary>
+	public sealed class ESKey : ESObject, IESIndex, IESProperty, IESString, IESNumber, IESInteger, IESFunction, IESEnumerable {
 
-	private readonly ESTable _table;
-	private readonly string _key;
+		private readonly string _key;
+		private readonly IESTable _table;
 
-	public object Target {
-		get { return _table; }
+		public ESKey(IESTable table, string key) {
+			_table = table;
+			_key = key;
+		}
+
+		public T GetValue<T>() {
+			return (T)GetValue();
+		}
+
+		public override string ToString() {
+			return string.Format("ESKey Key: {0}, Table: {1}", _key, _table);
+		}
+
+		public IEnumerator GetEnumerator() {
+			return ToObject<IEnumerable>().GetEnumerator();
+		}
+
+		public IESObject Invoke(IESObject[] args) {
+			return GetValue<IESFunction>().Invoke(args);
+		}
+
+		IESObject IESIndex.this[IESObject index] {
+			get { return GetValue<IESIndex>()[index]; }
+			set { GetValue<IESIndex>()[index] = value; }
+		}
+
+		public override object ToObject() {
+			return GetValue().ToObject();
+		}
+
+		public override IESObject GetProperty(string name) {
+			return GetValue().GetProperty(name);
+		}
+
+		public override bool ToBoolean() {
+			return GetValue().ToBoolean();
+		}
+
+		int IESInteger.Value {
+			set { SetValue(new ESNumber(value)); }
+			get { return ToInt32(ToObject()); }
+		}
+
+		float IESNumber.Value {
+			set { SetValue(new ESNumber(value)); }
+			get { return ToFloat(ToObject()); }
+		}
+
+		public object Target {
+			get { return _table; }
+		}
+
+		public void SetValue(IESObject value) {
+			_table[_key] = value;
+		}
+
+		public void SetValue(object value) {
+			SetValue(ToVirtual(value));
+		}
+
+		public IESObject GetValue() {
+			return _table[_key];
+		}
+
+		string IESString.Value {
+			set { SetValue(new ESString(value)); }
+			get { return ToString(ToObject()); }
+		}
+
 	}
-
-	float IESNumber.Value {
-		set { SetValue(new ESNumber(value)); }
-		get { return ToFloat(ToObject()); }
-	}
-
-	int IESInteger.Value {
-		set { SetValue(new ESNumber(value)); }
-		get { return ToInt32(ToObject()); }
-	}
-
-	string IESString.Value {
-		set { SetValue(new ESString(value)); }
-		get { return ToString(ToObject()); }
-	}
-
-	IESObject IESIndex.this[IESObject index] {
-		get { return GetValue<IESIndex>()[index]; }
-		set { GetValue<IESIndex>()[index] = value; }
-	}
-
-	public ESKey(ESTable table, string key) {
-		_table = table;
-		_key = key;
-	}
-
-	public void SetValue(IESObject value) {
-		_table[_key] = value;
-	}
-
-	public void SetValue(object value) {
-		SetValue(ToVirtual(value));
-	}
-
-	public IESObject GetValue() {
-		return _table[_key];
-	}
-
-	public T GetValue<T>() {
-		return (T)GetValue();
-	}
-
-	public override object ToObject() {
-		return GetValue().ToObject();
-	}
-
-	public override IESObject GetProperty(string name) {
-		return GetValue().GetProperty(name);
-	}
-
-	public IESObject Invoke(IESObject[] args) {
-		return GetValue<IESFunction>().Invoke(args);
-	}
-
-	public IEnumerator GetEnumerator() {
-		return ToObject<IEnumerable>().GetEnumerator();
-	}
-
-	public override bool IsTrue() {
-		return GetValue().IsTrue();
-	}
-
-	public override string ToString() {
-		return string.Format("ESKey Table: {0}, Key: {1}", _table, _key);
-	}
-
-}
 
 }
