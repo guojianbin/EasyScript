@@ -328,6 +328,8 @@
     <Compile Include="src\es\syntaxs\matches\SyntaxMatchIfElse2.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchPredicate.cs" />
+    <Compile Include="src\es\syntaxs\matches\SyntaxMatchPredicates.cs" />
     <Compile Include="src\es\syntaxs\matches\SyntaxMatchSplit.cs">
       <SubType>Code</SubType>
     </Compile>
