@@ -26,6 +26,11 @@ namespace Easily.ES {
 			return string.Format("ExpressionTable Map: {0}", _args.Count);
 		}
 
+		protected override void OnDispose() {
+			base.OnDispose();
+			_args.Dispose();
+		}
+
 	}
 
 }

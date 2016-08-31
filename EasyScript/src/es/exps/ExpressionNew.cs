@@ -36,6 +36,11 @@ namespace Easily.ES {
 			return string.Format("ExpressionNew Name: {0}, Args: {1}", _name, _args.Count);
 		}
 
+		protected override void OnDispose() {
+			base.OnDispose();
+			_args.Dispose();
+		}
+
 	}
 
 }

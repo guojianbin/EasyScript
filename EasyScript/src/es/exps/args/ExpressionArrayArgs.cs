@@ -23,16 +23,21 @@ namespace Easily.ES {
 			return obj._args;
 		}
 
-		public override string ToString() {
-			return string.Format("ExpressionArrayArgs Args: {0}", Count);
-		}
-
 		public IEnumerator<IExpressionRight> GetEnumerator() {
 			return _args.GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {
 			return GetEnumerator();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionArrayArgs Args: {0}", Count);
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_args.Dispose();
 		}
 
 	}

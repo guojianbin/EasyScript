@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Easily.Bases;
+using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -51,6 +52,16 @@ namespace Easily.ES {
 			} else {
 				return false;
 			}
+		}
+
+		public static void Dispose<T>(this List<T> list) where T : IDisposable {
+			list.ForEach(t => t.Dispose());
+			list.Clear();
+		}
+
+		public static void Dispose<T>(this Dictionary<string, T> dict) where T : IDisposable {
+			dict.Values.ForEach(t => t.Dispose());
+			dict.Clear();
 		}
 
 		public static string GetString(this IESObject obj) {

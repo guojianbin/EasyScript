@@ -27,16 +27,21 @@ namespace Easily.ES {
 			_args = args;
 		}
 
-		public override string ToString() {
-			return string.Format("ExpressionStringArgs Args: {0}", _args.Format());
-		}
-
 		public IEnumerator<string> GetEnumerator() {
 			return _args.GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {
 			return GetEnumerator();
+		}
+
+		public override string ToString() {
+			return string.Format("ExpressionStringArgs Args: {0}", _args.Format());
+		}
+
+		protected override void OnDispose() {
+			base.OnDispose();
+			_args.Clear();
 		}
 
 	}

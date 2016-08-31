@@ -28,7 +28,8 @@ namespace Easily.ES {
 			context.UpdateValue("this", obj);
 			_entry.Execute(context);
 			context.ForEach(obj.Add);
-			context.GetValue<IESFunction>(_name).Invoke(args);
+			var ctor = context.GetValue<IESFunction>(_name);
+			ctor.Invoke(args);
 			return obj;
 		}
 

@@ -48,6 +48,7 @@ namespace Easily.ES {
 
 		protected override void OnDispose() {
 			base.OnDispose();
+			_args.Dispose();
 			_entry.Dispose();
 		}
 

@@ -56,7 +56,7 @@ namespace Easily.ES {
 
 		protected override void OnDispose() {
 			base.OnDispose();
-			_list.Clear();
+			_list.Dispose();
 		}
 
 		public override string ToString() {
