@@ -27,12 +27,12 @@ function ctrl() {
 	foreach (i in arr) {
 		print(i)
 	}
-	map = {a:1, b:2}
-	foreach (o in map) {
+	t = {a:1, b:2}
+	foreach (o in t) {
 		print(o)
 	}
-	print(map[""a""])
-	print(map.b)
+	print(t[""a""])
+	print(t.b)
 }
 function closure() {
 	n = 100
