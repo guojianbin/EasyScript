@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxDivision : Syntax {
 
 		public SyntaxDivision() {
-			Add(new SyntaxMatchBody(new[] {typeof(IExpressionRight), typeof(MarkerDiv), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(IExpressionRight), typeof(CharterDiv), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

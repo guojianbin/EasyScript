@@ -49,13 +49,7 @@
     <Compile Include="src\base\EasyDefault.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\base\Observer.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="src\base\ThrowHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\base\Struct.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\es\EVM.cs">
@@ -76,24 +70,14 @@
     <Compile Include="src\es\exps\bases\Expression.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\es\exps\bases\ExpressionBB.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionBraces.cs" />
+    <Compile Include="src\es\exps\bases\ExpressionBrackets.cs" />
+    <Compile Include="src\es\exps\bases\ExpressionCharter.cs" />
     <Compile Include="src\es\exps\bases\ExpressionList.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\es\exps\bases\ExpressionLL.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\es\exps\bases\ExpressionMarker.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\es\exps\bases\ExpressionMM.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\es\exps\bases\ExpressionSS.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="src\es\exps\bases\ExpressionModule.cs" />
+    <Compile Include="src\es\exps\bases\ExpressionParens.cs" />
     <Compile Include="src\es\exps\bases\IExpression.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +138,7 @@
     <Compile Include="src\es\exps\ExpressionInvoke.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\es\exps\ExpressionMethod.cs" />
     <Compile Include="src\es\exps\ExpressionNew.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -208,9 +193,6 @@
     <Compile Include="src\es\Module.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\es\ParseLevel.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="src\es\Parser.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -250,9 +232,7 @@
     <Compile Include="src\es\syntaxs\bases\SyntaxNotifier.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\es\syntaxs\bases\SyntaxSS.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="src\es\syntaxs\bases\SyntaxParens.cs" />
     <Compile Include="src\es\syntaxs\calcs\SyntaxAdd.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -345,6 +325,7 @@
     <Compile Include="src\es\syntaxs\SyntaxInvoke.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\es\syntaxs\SyntaxMethod.cs" />
     <Compile Include="src\es\syntaxs\SyntaxNew.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -352,9 +333,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\es\syntaxs\SyntaxReturn.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\es\syntaxs\SyntaxReturn2.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\es\syntaxs\SyntaxTable.cs">
@@ -438,6 +416,7 @@
     <Compile Include="src\utils\Extensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\utils\Stopwatch.cs" />
     <Compile Include="src\utils\StringUtils.cs">
       <SubType>Code</SubType>
     </Compile>

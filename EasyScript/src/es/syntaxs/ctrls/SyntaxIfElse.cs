@@ -8,13 +8,13 @@ namespace Easily.ES {
 	internal class SyntaxIfElse : Syntax {
 
 		public SyntaxIfElse() {
-			Add(new SyntaxMatchBody(new[] {typeof(MarkerIf), typeof(ExpressionSS), typeof(ExpressionBB), typeof(MarkerElse), typeof(ExpressionBB)}));
+			Add(new SyntaxMatchBody(new[] { typeof(CharterIf), typeof(ExpressionParens), typeof(ExpressionBraces), typeof(CharterElse), typeof(ExpressionBraces) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {
-			var item1 = list[pos + 1].Cast<ExpressionSS>();
-			var item2 = list[pos + 2].Cast<ExpressionBB>();
-			var item3 = list[pos + 4].Cast<ExpressionBB>();
+			var item1 = list[pos + 1].Cast<ExpressionParens>();
+			var item2 = list[pos + 2].Cast<ExpressionBraces>();
+			var item3 = list[pos + 4].Cast<ExpressionBraces>();
 			list.RemoveRange(pos, 5);
 			parser.Parse(item1);
 			parser.Parse(item2);

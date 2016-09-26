@@ -8,11 +8,11 @@ namespace Easily.ES {
 	internal class SyntaxTable : Syntax {
 
 		public SyntaxTable() {
-			Add(new SyntaxMatchBody(new[] {typeof(ExpressionBB)}));
+			Add(new SyntaxMatchBody(new[] { typeof(ExpressionBraces) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {
-			var item1 = list[pos].Cast<ExpressionBB>();
+			var item1 = list[pos].Cast<ExpressionBraces>();
 			list.RemoveRange(pos, 1);
 			parser.Parse(item1);
 			parser.Parse(ParseLevel.TABLE_ARGS, item1);

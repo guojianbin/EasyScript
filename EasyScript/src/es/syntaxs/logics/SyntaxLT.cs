@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxLT : Syntax {
 
 		public SyntaxLT() {
-			Add(new SyntaxMatchBody(new[] {typeof(IExpressionRight), typeof(MarkerLt), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(IExpressionRight), typeof(CharterLT), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

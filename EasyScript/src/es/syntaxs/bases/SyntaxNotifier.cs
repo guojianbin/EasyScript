@@ -8,7 +8,6 @@ namespace Easily.ES {
 	internal class SyntaxNotifier : Syntax {
 
 		public delegate void OnParse(Parser parser, List<IExpression> list, ref int pos);
-
 		private readonly OnParse _onParse;
 
 		public SyntaxNotifier(OnParse onParse) {

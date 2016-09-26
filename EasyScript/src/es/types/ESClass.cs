@@ -25,10 +25,6 @@ namespace Easily.ES {
 			return _value.New(context, args);
 		}
 
-		public override IESObject GetProperty(string name) {
-			return GetProperty(_value, name);
-		}
-
 		public override string ToString() {
 			return string.Format("ESClass Value: {0}", _value);
 		}

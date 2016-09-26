@@ -10,12 +10,12 @@ namespace Easily.ES {
 		public SyntaxForArgs() {
 			var item = new SyntaxNotifier(OnParse);
 			item.Add(new SyntaxMatchCount(5));
-			item.Add(new SyntaxMatchBody(new[] {typeof(ExpressionBind), typeof(MarkerCma), typeof(IExpressionRight), typeof(MarkerCma), typeof(IExpressionRight)}));
+			item.Add(new SyntaxMatchBody(new[] { typeof(ExpressionBind), typeof(CharterCMA), typeof(IExpressionRight), typeof(CharterCMA), typeof(IExpressionRight) }));
 			Add(item);
 
 			var item2 = new SyntaxNotifier(OnParse2);
 			item2.Add(new SyntaxMatchCount(3));
-			item2.Add(new SyntaxMatchBody(new[] {typeof(ExpressionBind), typeof(MarkerCma), typeof(IExpressionRight)}));
+			item2.Add(new SyntaxMatchBody(new[] { typeof(ExpressionBind), typeof(CharterCMA), typeof(IExpressionRight) }));
 			Add(item2);
 		}
 

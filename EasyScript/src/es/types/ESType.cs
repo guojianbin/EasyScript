@@ -32,10 +32,14 @@ namespace Easily.ES {
 			return ESUtility.GetProperty(_value, name);
 		}
 
+		public override IESObject GetMethod(string name, int count) {
+			return ESUtility.GetMethod(_value, name, count);
+		}
+
 		public IESObject New(ESContext context, IESObject[] args) {
 			try {
-				var objects = args.Select(t => t.ToObject()).ToArray();
-				var ctor = _value.GetConstructor(objects.Select(t => t.GetType()).ToArray());
+				var objects = ESUtility.ToObjects(args, args.Length);
+				var ctor = _value.GetConstructor(ESUtility.ConvertTo(objects, t => t.GetType()));
 				return ToVirtual(ctor.Invoke(objects));
 			} catch (Exception e) {
 				throw new InvalidOperationException(string.Format(ToString() + " Arguments: {0}", args.Format()), e);

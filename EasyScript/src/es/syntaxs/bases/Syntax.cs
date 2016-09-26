@@ -11,7 +11,7 @@ namespace Easily.ES {
 
 		private readonly List<ISyntaxMatch> _matches = new List<ISyntaxMatch>();
 
-		public void Add(ISyntaxMatch match) {
+		internal void Add(ISyntaxMatch match) {
 			_matches.Add(match);
 		}
 

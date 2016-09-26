@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxSubtract : Syntax {
 
 		public SyntaxSubtract() {
-			Add(new SyntaxMatchBody(new[] {typeof(IExpressionRight), typeof(MarkerSub), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(IExpressionRight), typeof(CharterSub), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

@@ -6,9 +6,9 @@ namespace Easily.ES {
 	/// <summary>
 	/// @author Easily
 	/// </summary>
-	public class ExpressionBB : ExpressionList {
+	public class ExpressionBraces : ExpressionList {
 
-		public ExpressionBB(List<IExpression> list) : base(list) {
+		public ExpressionBraces(List<IExpression> list) : base(list) {
 			// ignored
 		}
 
@@ -30,7 +30,7 @@ namespace Easily.ES {
 		}
 
 		public override string ToString() {
-			return string.Format("ExpressionBB List: {0}", Count);
+			return string.Format("ExpressionBraces List: {0}", Count);
 		}
 
 	}

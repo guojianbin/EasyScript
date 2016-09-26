@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxTableArgs : Syntax {
 
 		public SyntaxTableArgs() {
-			Add(new SyntaxMatchSplit(typeof(MarkerCma), new[] {typeof(IExpressionName), typeof(MarkerCol), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchSplit(typeof(CharterCMA), new[] { typeof(IExpressionName), typeof(CharterCOL), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

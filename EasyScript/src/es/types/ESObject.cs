@@ -13,12 +13,36 @@ namespace Easily.ES {
 			return (T)ToObject();
 		}
 
+		public virtual bool ToBoolean() {
+			return true;
+		}
+
+		public virtual IESObject Clone() {
+			return this;
+		}
+
+		public virtual object ToObject() {
+			return this;
+		}
+
+		public virtual IESObject GetProperty(string name) {
+			return GetProperty(this, name);
+		}
+
+		public virtual IESObject GetMethod(string name, int count) {
+			return GetMethod(this, name, count);
+		}
+
 		public static implicit operator bool(ESObject obj) {
 			return obj.ToBoolean();
 		}
 
 		public static IESObject GetProperty(object obj, string name) {
 			return ESUtility.GetProperty(obj, name);
+		}
+
+		public static IESObject GetMethod(object obj, string name, int count) {
+			return ESUtility.GetMethod(obj, name, count);
 		}
 
 		public static object GetValue(object obj, string name) {
@@ -91,22 +115,6 @@ namespace Easily.ES {
 
 		public static string ToString(object value) {
 			return ESUtility.ToString(value);
-		}
-
-		public virtual bool ToBoolean() {
-			return true;
-		}
-
-		public virtual IESObject Clone() {
-			return this;
-		}
-
-		public virtual object ToObject() {
-			return this;
-		}
-
-		public virtual IESObject GetProperty(string name) {
-			return GetProperty(this, name);
 		}
 
 	}

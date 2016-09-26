@@ -8,11 +8,11 @@ namespace Easily.ES {
 	internal class SyntaxArray : Syntax {
 
 		public SyntaxArray() {
-			Add(new SyntaxMatchBody(new[] {typeof(ExpressionMM)}));
+			Add(new SyntaxMatchBody(new[] { typeof(ExpressionBrackets) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {
-			var item1 = list[pos].Cast<ExpressionMM>();
+			var item1 = list[pos].Cast<ExpressionBrackets>();
 			list.RemoveRange(pos, 1);
 			parser.Parse(item1);
 			parser.Parse(ParseLevel.ARRAY_ARGS, item1);

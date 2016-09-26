@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Easily.Bases;
-using Easily.Utility;
 
 namespace Easily.ES {
 
@@ -13,167 +9,178 @@ namespace Easily.ES {
 	/// </summary>
 	internal class Scanner : Disposable {
 
-		private static readonly Regex _cmment = new Regex(@"((\/\*(.|\n)*?\*\/)|(\-\-|\/\/).*?(\n|$))");
-		private static readonly Regex _str = new Regex(@"""(\\""|.|\n)*?""");
-		private static readonly Regex _word = new Regex(@"\b([a-zA-Z][\w_]*)\b");
-		private static readonly Regex _number = new Regex(@"(\d+\.\d+|\b\d+\b)");
-		private static readonly Regex _func = new Regex(@"\bfunction\b");
-		private static readonly Regex _class = new Regex(@"\bclass\b");
-		private static readonly Regex _new = new Regex(@"\bnew\b");
-		private static readonly Regex _for = new Regex(@"\bfor\b");
-		private static readonly Regex _foreach = new Regex(@"\bforeach\b");
-		private static readonly Regex _in = new Regex(@"\bin\b");
-		private static readonly Regex _if = new Regex(@"\bif\b");
-		private static readonly Regex _else = new Regex(@"\belse\b");
-		private static readonly Regex _break = new Regex(@"\bbreak\b");
-		private static readonly Regex _ret = new Regex(@"\breturn\b");
-		private static readonly Regex _while = new Regex(@"\bwhile\b");
-		private static readonly Regex _true = new Regex(@"\btrue\b");
-		private static readonly Regex _false = new Regex(@"\bfalse\b");
+		private static readonly Dictionary<char, TokenType> _specChars = new Dictionary<char, TokenType>();
+		private static readonly Dictionary<TokenType, RangeToken> _rangeMap = new Dictionary<TokenType, RangeToken>();
 
-		private static readonly List<Struct<Regex, Func<Match, Token>>> _matches = new List<Struct<Regex, Func<Match, Token>>>();
-		private static readonly Dictionary<char, TokenType> _m2t = new Dictionary<char, TokenType>();
-		private static readonly HashSet<char> _markers;
-		private static readonly Dictionary<TokenType, Struct<TokenType, TokenType>> _ranges = new Dictionary<TokenType, Struct<TokenType, TokenType>>();
-		private static readonly HashSet<TokenType> _opens;
+		private static readonly Regex _ignored = new Regex(@"[\r\n\t\s ]+|\/\*(.|\n)*?\*\/|(\-\-|\/\/).*?(\n|$)", RegexOptions.Compiled);
+		private static readonly Regex _str = new Regex(@"""(\\""|.|\n)*?""", RegexOptions.Compiled);
+		private static readonly Regex _func = new Regex(@"\bfunction\b", RegexOptions.Compiled);
+		private static readonly Regex _class = new Regex(@"\bclass\b", RegexOptions.Compiled);
+		private static readonly Regex _new = new Regex(@"\bnew\b", RegexOptions.Compiled);
+		private static readonly Regex _for = new Regex(@"\bfor\b", RegexOptions.Compiled);
+		private static readonly Regex _foreach = new Regex(@"\bforeach\b", RegexOptions.Compiled);
+		private static readonly Regex _in = new Regex(@"\bin\b", RegexOptions.Compiled);
+		private static readonly Regex _if = new Regex(@"\bif\b", RegexOptions.Compiled);
+		private static readonly Regex _else = new Regex(@"\belse\b", RegexOptions.Compiled);
+		private static readonly Regex _break = new Regex(@"\bbreak\b", RegexOptions.Compiled);
+		private static readonly Regex _ret = new Regex(@"\breturn\b", RegexOptions.Compiled);
+		private static readonly Regex _while = new Regex(@"\bwhile\b", RegexOptions.Compiled);
+		private static readonly Regex _true = new Regex(@"\btrue\b", RegexOptions.Compiled);
+		private static readonly Regex _false = new Regex(@"\bfalse\b", RegexOptions.Compiled);
+		private static readonly Regex _word = new Regex(@"\b[_a-zA-Z]\w*\b", RegexOptions.Compiled);
+		private static readonly Regex _number = new Regex(@"\b(\d+\.\d+|\d+)\b", RegexOptions.Compiled);
 
-		private readonly BitArray _flags;
 		private readonly string _src;
-		private readonly SortedList<int, Token> _tokens = new SortedList<int, Token>();
-		private readonly List<Token> _tokens2 = new List<Token>();
+		private readonly Dictionary<Regex, Match> _matches = new Dictionary<Regex, Match>();
+		private readonly LinkedList<Token> _tokens = new LinkedList<Token>();
+
+		static Scanner() {
+			_specChars.Add('(', TokenType.LS);
+			_specChars.Add(')', TokenType.RS);
+			_specChars.Add('[', TokenType.LM);
+			_specChars.Add(']', TokenType.RM);
+			_specChars.Add('{', TokenType.LB);
+			_specChars.Add('}', TokenType.RB);
+			_specChars.Add('=', TokenType.EQ);
+			_specChars.Add('!', TokenType.EX);
+			_specChars.Add('>', TokenType.GT);
+			_specChars.Add('<', TokenType.LT);
+			_specChars.Add(',', TokenType.CMA);
+			_specChars.Add('+', TokenType.ADD);
+			_specChars.Add('-', TokenType.SUB);
+			_specChars.Add('*', TokenType.MUL);
+			_specChars.Add('/', TokenType.DIV);
+			_specChars.Add('.', TokenType.DOT);
+			_specChars.Add(':', TokenType.COL);
+			_specChars.Add('`', TokenType.RDO);
+
+			_rangeMap.Add(TokenType.LS, new RangeToken { End = TokenType.RS, Target = TokenType.SS });
+			_rangeMap.Add(TokenType.LM, new RangeToken { End = TokenType.RM, Target = TokenType.MM });
+			_rangeMap.Add(TokenType.LB, new RangeToken { End = TokenType.RB, Target = TokenType.BB });
+		}
+
+		internal static IEnumerable<Token> Parse(string src) {
+			return new Scanner(src)._tokens;
+		}
 
 		private Scanner(string src) {
 			_src = src;
-			_flags = new BitArray(_src.Length);
+			Start();
 		}
 
-		static Scanner() {
-			_matches.Add(Struct.Create(_cmment, new Func<Match, Token>(m => new Token(TokenType.COMM, m.Value))));
-			_matches.Add(Struct.Create(_str, new Func<Match, Token>(m => new Token(TokenType.STR, m.Value))));
-			_matches.Add(Struct.Create(_func, new Func<Match, Token>(m => new Token(TokenType.FUNC, m.Value))));
-			_matches.Add(Struct.Create(_class, new Func<Match, Token>(m => new Token(TokenType.CLASS, m.Value))));
-			_matches.Add(Struct.Create(_new, new Func<Match, Token>(m => new Token(TokenType.NEW, m.Value))));
-			_matches.Add(Struct.Create(_for, new Func<Match, Token>(m => new Token(TokenType.FOR, m.Value))));
-			_matches.Add(Struct.Create(_foreach, new Func<Match, Token>(m => new Token(TokenType.FOREACH, m.Value))));
-			_matches.Add(Struct.Create(_in, new Func<Match, Token>(m => new Token(TokenType.IN, m.Value))));
-			_matches.Add(Struct.Create(_if, new Func<Match, Token>(m => new Token(TokenType.IF, m.Value))));
-			_matches.Add(Struct.Create(_else, new Func<Match, Token>(m => new Token(TokenType.ELSE, m.Value))));
-			_matches.Add(Struct.Create(_break, new Func<Match, Token>(m => new Token(TokenType.BREAK, m.Value))));
-			_matches.Add(Struct.Create(_ret, new Func<Match, Token>(m => new Token(TokenType.RET, m.Value))));
-			_matches.Add(Struct.Create(_while, new Func<Match, Token>(m => new Token(TokenType.WHILE, m.Value))));
-			_matches.Add(Struct.Create(_true, new Func<Match, Token>(m => new Token(TokenType.TRUE, m.Value))));
-			_matches.Add(Struct.Create(_false, new Func<Match, Token>(m => new Token(TokenType.FALSE, m.Value))));
-			_matches.Add(Struct.Create(_word, new Func<Match, Token>(m => new Token(TokenType.WORD, m.Value))));
-			_matches.Add(Struct.Create(_number, new Func<Match, Token>(m => new Token(TokenType.NUM, m.Value))));
-
-			_m2t.Add('(', TokenType.LS);
-			_m2t.Add(')', TokenType.RS);
-			_m2t.Add('[', TokenType.LM);
-			_m2t.Add(']', TokenType.RM);
-			_m2t.Add('{', TokenType.LB);
-			_m2t.Add('}', TokenType.RB);
-			_m2t.Add(',', TokenType.CMA);
-			_m2t.Add('=', TokenType.EQ);
-			_m2t.Add('!', TokenType.EX);
-			_m2t.Add('+', TokenType.ADD);
-			_m2t.Add('-', TokenType.SUB);
-			_m2t.Add('*', TokenType.MUL);
-			_m2t.Add('/', TokenType.DIV);
-			_m2t.Add('.', TokenType.DOT);
-			_m2t.Add(':', TokenType.COL);
-			_m2t.Add('>', TokenType.GT);
-			_m2t.Add('<', TokenType.LT);
-			_markers = new HashSet<char>(_m2t.Keys.ToArray());
-
-			_ranges.Add(TokenType.LS, Struct.Create(TokenType.RS, TokenType.SS));
-			_ranges.Add(TokenType.LM, Struct.Create(TokenType.RM, TokenType.MM));
-			_ranges.Add(TokenType.LB, Struct.Create(TokenType.RB, TokenType.BB));
-			_opens = new HashSet<TokenType>(_ranges.Keys);
-		}
-
-		public static List<Token> Parse(string src) {
-			var scanner = new Scanner(src);
-			return scanner.Start();
-		}
-
-		private List<Token> Start() {
+		private void Start() {
 			Parse();
-
-			_tokens2.AddRange(_tokens.Values.Where(t => t.Type != TokenType.COMM));
-			_tokens.Clear();
-
-			ParseBounds();
-			return _tokens2;
+			Merge();
 		}
 
-		private void Parse(Regex reg, Func<Match, Token> func) {
-			var matches = reg.Matches(_src).Cast<Match>();
-			matches.ForEach(t => Add(t.Index, func(t)));
+		private bool IsMatch(Regex regex, int pos, out Match match) {
+			if (!_matches.TryGetValue(regex, out match)) {
+				match = regex.Match(_src, pos);
+				_matches.Add(regex, match);
+			}
+			if (!match.Success) {
+				return false;
+			} else if (match.Index == pos) {
+				_matches[regex] = match.NextMatch();
+				return true;
+			} else if (match.Index < pos) {
+				_matches[regex] = match.NextMatch();
+				return IsMatch(regex, pos, out match);
+			} else {
+				return false;
+			}
 		}
 
 		private void Parse() {
-			_matches.ForEach(t => Parse(t.Item1, t.Item2));
 			var pos = 0;
-			while (true) {
-				if (pos >= _src.Length) {
-					break;
-				}
-				if (_flags[pos]) {
+			Match match;
+			TokenType type;
+			while (pos < _src.Length) {
+				if (IsMatch(_ignored, pos, out match)) {
+					pos += match.Length;
+				} else if (_specChars.TryGetValue(_src[pos], out type)) {
+					_tokens.AddLast(new Token { Type = type });
 					pos += 1;
-					continue;
+				} else if (IsMatch(_str, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.STR, Value = _src.Substring(pos + 1, match.Length - 2) });
+					pos += match.Length;
+				} else if (IsMatch(_func, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.FUNC });
+					pos += match.Length;
+				} else if (IsMatch(_class, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.CLASS });
+					pos += match.Length;
+				} else if (IsMatch(_new, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.NEW });
+					pos += match.Length;
+				} else if (IsMatch(_for, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.FOR });
+					pos += match.Length;
+				} else if (IsMatch(_foreach, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.FOREACH });
+					pos += match.Length;
+				} else if (IsMatch(_in, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.IN });
+					pos += match.Length;
+				} else if (IsMatch(_if, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.IF });
+					pos += match.Length;
+				} else if (IsMatch(_else, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.ELSE });
+					pos += match.Length;
+				} else if (IsMatch(_break, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.BREAK });
+					pos += match.Length;
+				} else if (IsMatch(_ret, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.RET });
+					pos += match.Length;
+				} else if (IsMatch(_while, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.WHILE });
+					pos += match.Length;
+				} else if (IsMatch(_true, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.TRUE });
+					pos += match.Length;
+				} else if (IsMatch(_false, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.FALSE });
+					pos += match.Length;
+				} else if (IsMatch(_word, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.WORD, Value = _src.Substring(pos, match.Length) });
+					pos += match.Length;
+				} else if (IsMatch(_number, pos, out match)) {
+					_tokens.AddLast(new Token { Type = TokenType.NUM, Value = _src.Substring(pos, match.Length) });
+					pos += match.Length;
+				} else {
+					ThrowException(ExceptionType.ARGUMENT, _src[pos].ToString());
 				}
-				var index = FindMarker(pos);
-				if (index == -1) {
+			}
+		}
+
+		private void Merge() {
+			var node = _tokens.First;
+			RangeToken temp;
+			while (node != null) {
+				if (_rangeMap.TryGetValue(node.Value.Type, out temp)) {
+					Merge(ref node, temp);
+				} else {
+					node = node.Next;
+				}
+			}
+		}
+
+		private void Merge(ref LinkedListNode<Token> begin, RangeToken range) {
+			var node = begin.Next;
+			RangeToken temp;
+			while (node != null) {
+				if (_rangeMap.TryGetValue(node.Value.Type, out temp)) {
+					Merge(ref node, temp);
+				} else if (node.Value.Type == range.End) {
+					var last = begin.Previous;
+					var list = new List<Token>(ESUtility.Range(begin.Next, node));
+					ESUtility.Remove(_tokens, begin, node.Next);
+					begin = _tokens.AddAfter(last, (new Token { Type = range.Target, Value = list })).Next;
 					break;
-				}
-				else {
-					Add(index, new Token(_m2t[_src[index]]));
-					pos = index + 1;
-				}
-			}
-		}
-
-		private int FindMarker(int pos) {
-			for (var i = pos; i < _src.Length; i++) {
-				if (_markers.Contains(_src[i])) {
-					return i;
-				}
-			}
-			return -1;
-		}
-
-		private void Add(int index, Token token) {
-			if (_flags[index]) {
-				return;
-			}
-			_tokens.Add(index, token);
-			var begin = index;
-			var end = index + token.Length;
-			for (var i = begin; i < end; i++) {
-				_flags[i] = true;
-			}
-		}
-
-		private void ParseBounds() {
-			for (var i = 0; i < _tokens2.Count; i++) {
-				if (_opens.Contains(_tokens2[i].Type)) {
-					var obj = _ranges[_tokens2[i].Type];
-					ParseBounds(i, obj.Item1, obj.Item2);
-				}
-			}
-		}
-
-		private void ParseBounds(int pos, TokenType right, TokenType comb) {
-			for (var i = pos + 1; i < _tokens2.Count; i++) {
-				if (_opens.Contains(_tokens2[i].Type)) {
-					var obj = _ranges[_tokens2[i].Type];
-					ParseBounds(i, obj.Item1, obj.Item2);
-				} else if (_tokens2[i].Type == right) {
-					var len = i - pos + 1;
-					var list = _tokens2.GetRange(pos + 1, len - 2);
-					_tokens2.RemoveRange(pos, len);
-					_tokens2.Insert(pos, new Token(comb, list));
-					break;
+				} else {
+					node = node.Next;
 				}
 			}
 		}

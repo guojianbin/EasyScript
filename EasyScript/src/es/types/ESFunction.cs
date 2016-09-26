@@ -37,10 +37,6 @@ namespace Easily.ES {
 			return _value.Invoke(_context, args);
 		}
 
-		public override IESObject GetProperty(string name) {
-			return GetProperty(_value, name);
-		}
-
 		public override string ToString() {
 			return string.Format("ESFunction Value: {0}, Count: {1}", _value, _count);
 		}

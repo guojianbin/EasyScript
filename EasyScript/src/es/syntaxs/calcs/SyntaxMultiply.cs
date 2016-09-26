@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxMultiply : Syntax {
 
 		public SyntaxMultiply() {
-			Add(new SyntaxMatchBody(new[] {typeof(IExpressionRight), typeof(MarkerMul), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(IExpressionRight), typeof(CharterMul), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

@@ -5,9 +5,17 @@ namespace Easily.ES {
 	/// <summary>
 	/// @author Easily
 	/// </summary>
-	public class ExpressionNumber : Expression, IExpressionRight, IExpressionLogic, IExpressionName {
+	public class ExpressionNumber : Expression, IExpressionNumber, IExpressionRight, IExpressionLogic, IExpressionName {
 
 		private readonly ESNumber _value;
+
+		public string Name {
+			get { return _value.GetString(); }
+		}
+
+		public float Value {
+			get { return _value.GetNumber(); }
+		}
 
 		public ExpressionNumber(string str) {
 			_value = new ESNumber(str);
@@ -19,10 +27,6 @@ namespace Easily.ES {
 
 		public bool ToBoolean(ESContext context) {
 			return _value.ToBoolean();
-		}
-
-		public string Name {
-			get { return _value.GetString(); }
 		}
 
 		public override IESObject Execute(ESContext context) {

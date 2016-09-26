@@ -9,7 +9,7 @@ namespace Easily.ES {
 
 		public SyntaxNegate() {
 			Add(new SyntaxMatchBound(typeof(IExpressionRight)));
-			Add(new SyntaxMatchBody(new[] {typeof(MarkerSub), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(CharterSub), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

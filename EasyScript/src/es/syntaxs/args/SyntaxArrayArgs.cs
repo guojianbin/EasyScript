@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxArrayArgs : Syntax {
 
 		public SyntaxArrayArgs() {
-			Add(new SyntaxMatchSplit(typeof(MarkerCma), new[] {typeof(IExpressionRight)}));
+			Add(new SyntaxMatchSplit(typeof(CharterCMA), new[] { typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

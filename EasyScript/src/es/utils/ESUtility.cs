@@ -25,44 +25,50 @@ namespace Easily.ES {
 		private static readonly ExpressionTableArgs _tableArgs = new ExpressionTableArgs();
 
 		static ESUtility() {
-			_t2e.Add(TokenType.CMA, t => new MarkerCma());
-			_t2e.Add(TokenType.DOT, t => new MarkerDot());
-			_t2e.Add(TokenType.COL, t => new MarkerCol());
-			_t2e.Add(TokenType.LT, t => new MarkerLt());
-			_t2e.Add(TokenType.GT, t => new MarkerGt());
-			_t2e.Add(TokenType.MUL, t => new MarkerMul());
-			_t2e.Add(TokenType.DIV, t => new MarkerDiv());
-			_t2e.Add(TokenType.ADD, t => new MarkerAdd());
-			_t2e.Add(TokenType.SUB, t => new MarkerSub());
-			_t2e.Add(TokenType.EQ, t => new MarkerEq());
-			_t2e.Add(TokenType.EX, t => new MarkerEx());
-			_t2e.Add(TokenType.RET, t => new MarkerRet());
-			_t2e.Add(TokenType.WHILE, t => new MarkerWhile());
-			_t2e.Add(TokenType.FUNC, t => new MarkerFunc());
-			_t2e.Add(TokenType.CLASS, t => new MarkerClass());
-			_t2e.Add(TokenType.NEW, t => new MarkerNew());
-			_t2e.Add(TokenType.FOR, t => new MarkerFor());
-			_t2e.Add(TokenType.FOREACH, t => new MarkerForEach());
-			_t2e.Add(TokenType.IN, t => new MarkerIn());
-			_t2e.Add(TokenType.IF, t => new MarkerIf());
-			_t2e.Add(TokenType.ELSE, t => new MarkerElse());
+			_t2e.Add(TokenType.LT, t => new CharterLT());
+			_t2e.Add(TokenType.GT, t => new CharterGT());
+			_t2e.Add(TokenType.EQ, t => new CharterEQ());
+			_t2e.Add(TokenType.EX, t => new CharterEX());
+
+			_t2e.Add(TokenType.CMA, t => new CharterCMA());
+			_t2e.Add(TokenType.DOT, t => new CharterDOT());
+			_t2e.Add(TokenType.RDO, t => new CharterRDO());
+			_t2e.Add(TokenType.COL, t => new CharterCOL());
+			_t2e.Add(TokenType.MUL, t => new CharterMul());
+			_t2e.Add(TokenType.DIV, t => new CharterDiv());
+			_t2e.Add(TokenType.ADD, t => new CharterAdd());
+			_t2e.Add(TokenType.SUB, t => new CharterSub());
+
+			_t2e.Add(TokenType.IN, t => new CharterIn());
+			_t2e.Add(TokenType.IF, t => new CharterIf());
+			_t2e.Add(TokenType.RET, t => new CharterRet());
+			_t2e.Add(TokenType.NEW, t => new CharterNew());
+			_t2e.Add(TokenType.FUNC, t => new CharterFunc());
+			_t2e.Add(TokenType.ELSE, t => new CharterElse());
+			_t2e.Add(TokenType.WHILE, t => new CharterWhile());
+			_t2e.Add(TokenType.CLASS, t => new CharterClass());
 			_t2e.Add(TokenType.BREAK, t => new ExpressionBreak());
+			_t2e.Add(TokenType.FOR, t => new CharterFor());
+			_t2e.Add(TokenType.FOREACH, t => new CharterForEach());
+
 			_t2e.Add(TokenType.TRUE, t => new ExpressionBoolean(true));
 			_t2e.Add(TokenType.FALSE, t => new ExpressionBoolean(false));
-			_t2e.Add(TokenType.WORD, t => new ExpressionWord(t.Value));
-			_t2e.Add(TokenType.NUM, t => new ExpressionNumber(t.Value));
-			_t2e.Add(TokenType.STR, t => new ExpressionString(t.Value.Substring(1, t.Length - 2)));
-			_t2e.Add(TokenType.SS, t => new ExpressionSS(t.Select(Parse).ToList()));
-			_t2e.Add(TokenType.MM, t => new ExpressionMM(t.Select(Parse).ToList()));
-			_t2e.Add(TokenType.BB, t => new ExpressionBB(t.Select(Parse).ToList()));
-		}
 
-		internal static IExpression Parse(Token token) {
-			return _t2e[token.Type](token);
+			_t2e.Add(TokenType.WORD, t => new ExpressionWord((string)t.Value));
+			_t2e.Add(TokenType.NUM, t => new ExpressionNumber((string)t.Value));
+			_t2e.Add(TokenType.STR, t => new ExpressionString((string)t.Value));
+
+			_t2e.Add(TokenType.SS, t => new ExpressionParens(((IEnumerable<Token>)t.Value).Select(Parse).ToList()));
+			_t2e.Add(TokenType.MM, t => new ExpressionBrackets(((IEnumerable<Token>)t.Value).Select(Parse).ToList()));
+			_t2e.Add(TokenType.BB, t => new ExpressionBraces(((IEnumerable<Token>)t.Value).Select(Parse).ToList()));
 		}
 
 		internal static List<IExpression> Parse(IEnumerable<Token> tokens) {
 			return tokens.Select(Parse).ToList();
+		}
+
+		internal static IExpression Parse(Token token) {
+			return _t2e[token.Type](token);
 		}
 
 		public static IESObject GetProperty(object obj, string name) {
@@ -97,6 +103,25 @@ namespace Easily.ES {
 				return new ESMethod(method);
 			} else {
 				throw new InvalidOperationException(String.Format("Type: {0}, Name: {1}", type, name));
+			}
+		}
+
+		public static IESObject GetMethod(object obj, string name, int count) {
+			var type = obj.GetType();
+			var method = type.GetMethods(_instance).Where(t => t.Name == name).FirstOrDefault(t => t.GetParameters().Length == count);
+			if (method != null) {
+				return new ESMethod(obj, method);
+			} else {
+				throw new InvalidOperationException(String.Format("Target: {0}, Name: {1}, Count: {2}", type, name, count));
+			}
+		}
+
+		public static IESObject GetMethod(Type type, string name, int count) {
+			var method = type.GetMethods(_static).Where(t => t.Name == name).FirstOrDefault(t => t.GetParameters().Length == count);
+			if (method != null) {
+				return new ESMethod(method);
+			} else {
+				throw new InvalidOperationException(String.Format("Type: {0}, Name: {1}, Count: {2}", type, name, count));
 			}
 		}
 
@@ -231,6 +256,14 @@ namespace Easily.ES {
 			return arr;
 		}
 
+		public static R[] ConvertTo<T, R>(T[] src, Func<T, R> func) {
+			var temp = new R[src.Length];
+			for (var i = 0; i < src.Length; i++) {
+				temp[i] = func(src[i]);
+			}
+			return temp;
+		}
+
 		public static IESObject GetProperty(ESArray array, string name) {
 			if (name == "add") {
 				return ToVirtual(new Action<object>(v => array.Add(ToVirtual(v))));
@@ -299,6 +332,31 @@ namespace Easily.ES {
 
 		public static ExpressionTableArgs ToTableArgs(IExpressionList list) {
 			return list.Count > 0 ? list[0].Cast<ExpressionTableArgs>() : _tableArgs;
+		}
+
+		internal static IEnumerable<T> Range<T>(LinkedListNode<T> begin, LinkedListNode<T> end) {
+			var node = begin;
+			while (node != end) {
+				yield return node.Value;
+				node = node.Next;
+			}
+		}
+
+		internal static void Remove<T>(LinkedList<T> list, LinkedListNode<T> begin, LinkedListNode<T> end) {
+			var last = begin.Previous;
+			var node = begin;
+			while (node != end) {
+				list.Remove(node);
+				node = last.Next;
+			}
+		}
+
+		internal static LinkedListNode<T> Next<T>(LinkedListNode<T> begin, int count) {
+			var node = begin;
+			for (var i = 0; i < count; i++) {
+				node = node.Next;
+			}
+			return node;
 		}
 
 		public static byte ToByte(object value) {

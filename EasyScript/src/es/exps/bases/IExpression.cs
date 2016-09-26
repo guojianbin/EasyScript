@@ -44,6 +44,15 @@ namespace Easily.ES {
 	/// <summary>
 	/// @author Easily
 	/// </summary>
+	public interface IExpressionNumber : IExpression {
+
+		float Value { get; }
+
+	}
+
+	/// <summary>
+	/// @author Easily
+	/// </summary>
 	public interface IExpressionLogic : IExpression {
 
 		bool ToBoolean(ESContext context);
@@ -75,7 +84,6 @@ namespace Easily.ES {
 	public interface IExpressionList : IExpression, IEnumerable<IExpression> {
 
 		int Count { get; }
-
 		IExpression this[int index] { get; }
 
 	}

@@ -33,10 +33,6 @@ namespace Easily.ES {
 			_value = value;
 		}
 
-		public override string ToString() {
-			return string.Format("ESString Value: {0}", _value);
-		}
-
 		public override bool ToBoolean() {
 			return !string.IsNullOrEmpty(_value);
 		}
@@ -49,8 +45,16 @@ namespace Easily.ES {
 			return GetProperty(_value, name);
 		}
 
+		public override IESObject GetMethod(string name, int count) {
+			return GetMethod(_value, name, count);
+		}
+
 		public IEnumerator GetEnumerator() {
 			throw new InvalidOperationException(ToString());
+		}
+
+		public override string ToString() {
+			return string.Format("ESString Value: {0}", _value);
 		}
 
 	}

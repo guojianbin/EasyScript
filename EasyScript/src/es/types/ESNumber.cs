@@ -48,6 +48,10 @@ namespace Easily.ES {
 			return GetProperty(_value, name);
 		}
 
+		public override IESObject GetMethod(string name, int count) {
+			return GetMethod(_value, name, count);
+		}
+
 		public override IESObject Clone() {
 			return new ESNumber(_value);
 		}

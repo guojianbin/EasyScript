@@ -8,14 +8,14 @@ namespace Easily.Bases {
 	/// </summary>
 	public class Disposable : IDisposable {
 
-		private bool _isDisposed;
+		private bool _disposed;
 
 		public bool IsDisposed {
-			get { return _isDisposed; }
+			get { return _disposed; }
 		}
 
 		public bool IsEnabled {
-			get { return !_isDisposed; }
+			get { return !_disposed; }
 		}
 
 		public static string NewUID() {
@@ -34,18 +34,14 @@ namespace Easily.Bases {
 			ThrowHelper.ThrowException(type, msg);
 		}
 
-		public void Dispose(bool value) {
-			_isDisposed = value;
-		}
-
 		protected virtual void OnDispose() {
 			// ignored
 		}
 
 		public void Dispose() {
-			if (!_isDisposed) {
+			if (!_disposed) {
 				GC.SuppressFinalize(this);
-				Dispose(true);
+				_disposed = true;
 				OnDispose();
 			}
 		}

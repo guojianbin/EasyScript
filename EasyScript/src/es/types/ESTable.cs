@@ -17,6 +17,10 @@ namespace Easily.ES {
 			get { return _dict; }
 		}
 
+		public bool IsReadOnly {
+			get { return false; }
+		}
+
 		public int Count {
 			get { return _dict.Count; }
 		}
@@ -27,10 +31,6 @@ namespace Easily.ES {
 
 		public ICollection<IESObject> Values {
 			get { return _dict.Values; }
-		}
-
-		public bool IsReadOnly {
-			get { return false; }
 		}
 
 		public IESObject this[int key] {

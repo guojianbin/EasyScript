@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxGE : Syntax {
 
 		public SyntaxGE() {
-			Add(new SyntaxMatchBody(new[] {typeof(IExpressionRight), typeof(MarkerGt), typeof(MarkerEq), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(IExpressionRight), typeof(CharterGT), typeof(CharterEQ), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {

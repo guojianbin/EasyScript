@@ -72,6 +72,10 @@ namespace Easily.ES {
 			return GetProperty(ToObject(), name);
 		}
 
+		public override IESObject GetMethod(string name, int count) {
+			return GetMethod(ToObject(), name, count);
+		}
+
 		public override bool ToBoolean() {
 			return ToObject() != null;
 		}

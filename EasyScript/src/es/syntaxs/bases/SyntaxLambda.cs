@@ -9,11 +9,11 @@ namespace Easily.ES {
 
 		public SyntaxLambda() {
 			var item = new SyntaxNotifier(OnParse);
-			item.Add(new SyntaxMatchBody(new[] {typeof(IExpressionName), typeof(MarkerEq), typeof(MarkerGt), typeof(IExpressionRight)}));
+			item.Add(new SyntaxMatchBody(new[] { typeof(IExpressionName), typeof(CharterEQ), typeof(CharterGT), typeof(IExpressionRight) }));
 			Add(item);
 
 			var item2 = new SyntaxNotifier(OnParse2);
-			item2.Add(new SyntaxMatchBody(new[] {typeof(ExpressionSS), typeof(MarkerEq), typeof(MarkerGt), typeof(IExpressionRight)}));
+			item2.Add(new SyntaxMatchBody(new[] { typeof(ExpressionParens), typeof(CharterEQ), typeof(CharterGT), typeof(IExpressionRight) }));
 			Add(item2);
 		}
 
@@ -26,7 +26,7 @@ namespace Easily.ES {
 		}
 
 		public static void OnParse2(Parser parser, List<IExpression> list, ref int pos) {
-			var item1 = list[pos].Cast<ExpressionSS>();
+			var item1 = list[pos].Cast<ExpressionParens>();
 			var item2 = list[pos + 3].Cast<IExpressionRight>();
 			list.RemoveRange(pos, 4);
 			parser.Parse(ParseLevel.STRING_ARGS, item1);

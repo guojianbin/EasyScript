@@ -13,6 +13,7 @@ namespace Easily.ES {
 		object ToObject();
 		IESObject Clone();
 		IESObject GetProperty(string name);
+		IESObject GetMethod(string name, int count);
 
 	}
 

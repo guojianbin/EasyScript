@@ -10,13 +10,13 @@ namespace Easily.ES {
 		private readonly Func<object, object> _convert;
 		private readonly IESProperty _property;
 
-		public object Target {
-			get { return _value; }
-		}
-
 		private object _value {
 			get { return _property.ToObject(); }
 			set { _property.SetValue(_convert(value)); }
+		}
+
+		public object Target {
+			get { return _value; }
 		}
 
 		int IESInteger.Value {
@@ -61,6 +61,10 @@ namespace Easily.ES {
 
 		public override IESObject GetProperty(string name) {
 			return GetProperty(_value, name);
+		}
+
+		public override IESObject GetMethod(string name, int count) {
+			return GetMethod(_value, name, count);
 		}
 
 		public override string ToString() {

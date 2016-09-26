@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Easily.Bases;
 
 namespace Easily.ES {
@@ -6,15 +7,18 @@ namespace Easily.ES {
 	/// <summary>
 	/// @author Easily
 	/// </summary>
-	public class ESLibrary : Disposable {
+	internal class ESLibrary : Disposable {
 
 		private readonly ESTable _math;
 		private readonly ESTable _string;
+		private readonly ESTable _file;
 
-		public ESLibrary(EVM vm) {
+		internal ESLibrary(EVM vm) {
 			_string = new ESTable();
 			_math = new ESTable();
+			_file = new ESTable();
 
+			vm.SetValue("type", typeof(Type));
 			vm.SetValue("tostring", new Func<object, string>(t => t.ToString()));
 			vm.SetValue("typeof", new Func<object, Type>(t => t.GetType()));
 			vm.SetValue("tolist", new Func<object, IESObject>(ESUtility.ToList));
@@ -33,12 +37,17 @@ namespace Easily.ES {
 			_math.Add("min", new Func<float, float, float>(Math.Min));
 			_math.Add("max", new Func<float, float, float>(Math.Max));
 			_math.Add("abs", new Func<float, float>(Math.Abs));
+
+			vm.SetValue("file", _file);
+			_file.Add("write", new Action<string, string>(File.WriteAllText));
+			_file.Add("read", new Func<string, string>(File.ReadAllText));
 		}
 
 		protected override void OnDispose() {
 			base.OnDispose();
 			_string.Dispose();
 			_math.Dispose();
+			_file.Dispose();
 		}
 
 	}

@@ -7,9 +7,9 @@ namespace Easily.ES {
 	/// <summary>
 	/// @author Easily
 	/// </summary>
-	public class ExpressionSS : ExpressionList, IExpressionRight {
+	public class ExpressionParens : ExpressionList, IExpressionRight {
 
-		public ExpressionSS(List<IExpression> list) : base(list) {
+		public ExpressionParens(List<IExpression> list) : base(list) {
 			// ignored
 		}
 
@@ -17,12 +17,12 @@ namespace Easily.ES {
 			if (Count == 1) {
 				return this[0].Execute(context);
 			} else {
-				throw new InvalidOperationException("Count not eq 1");
+				throw new InvalidOperationException("Count != 1");
 			}
 		}
 
 		public override string ToString() {
-			return string.Format("ExpressionSS List: {0}", Count);
+			return string.Format("ExpressionParens Count: {0}", Count);
 		}
 
 	}

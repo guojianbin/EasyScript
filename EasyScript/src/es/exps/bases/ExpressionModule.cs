@@ -6,9 +6,9 @@ namespace Easily.ES {
 	/// <summary>
 	/// @author Easily
 	/// </summary>
-	public class ExpressionLL : ExpressionList {
+	public class ExpressionModule : ExpressionList {
 
-		public ExpressionLL(List<IExpression> list) : base(list) {
+		public ExpressionModule(List<IExpression> list) : base(list) {
 			// ignored
 		}
 
@@ -26,7 +26,7 @@ namespace Easily.ES {
 		}
 
 		public override string ToString() {
-			return string.Format("ExpressionLL List: {0}", Count);
+			return string.Format("ExpressionModule List: {0}", Count);
 		}
 
 	}

@@ -8,7 +8,7 @@ namespace Easily.ES {
 	internal class SyntaxNot : Syntax {
 
 		public SyntaxNot() {
-			Add(new SyntaxMatchBody(new[] {typeof(MarkerEx), typeof(IExpressionRight)}));
+			Add(new SyntaxMatchBody(new[] { typeof(CharterEX), typeof(IExpressionRight) }));
 		}
 
 		public override void Parse(Parser parser, List<IExpression> list, ref int pos) {
