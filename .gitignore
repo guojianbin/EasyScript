@@ -1,2 +1,4 @@
 /EasyScript/bin
 /EasyScript/obj
+/.vs
+*.suo
