@@ -157,9 +157,9 @@ namespace Easily.ES {
 
 		private void Merge() {
 			var node = _tokens.First;
-			RangeToken temp;
-			while (node != null) {
-				if (_rangeMap.TryGetValue(node.Value.Type, out temp)) {
+		    while (node != null) {
+			    RangeToken temp;
+			    if (_rangeMap.TryGetValue(node.Value.Type, out temp)) {
 					Merge(ref node, temp);
 				} else {
 					node = node.Next;
@@ -169,9 +169,9 @@ namespace Easily.ES {
 
 		private void Merge(ref LinkedListNode<Token> begin, RangeToken range) {
 			var node = begin.Next;
-			RangeToken temp;
-			while (node != null) {
-				if (_rangeMap.TryGetValue(node.Value.Type, out temp)) {
+		    while (node != null) {
+			    RangeToken temp;
+			    if (_rangeMap.TryGetValue(node.Value.Type, out temp)) {
 					Merge(ref node, temp);
 				} else if (node.Value.Type == range.End) {
 					var last = begin.Previous;

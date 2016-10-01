@@ -9,19 +9,17 @@ namespace Easily.Utility {
 	public static class Extensions {
 
 		public static void ForEach<T>(this IEnumerable<T> list, Action<T> callback) {
-			var iter = list.GetEnumerator();
-			while (iter.MoveNext()) {
-				callback(iter.Current);
-			}
+		    foreach (var t in list) {
+		        callback(t);
+		    }
 		}
 
 		public static void ForEach<T>(this IEnumerable<T> list, Action<int, T> callback) {
-			var index = 0;
-			var iter = list.GetEnumerator();
-			while (iter.MoveNext()) {
-				callback(index++, iter.Current);
-			}
-		}
+			var i = 0;
+            foreach (var t in list) {
+                callback(i++, t);
+            }
+        }
 
 	}
 
