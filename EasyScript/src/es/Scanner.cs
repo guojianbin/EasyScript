@@ -14,7 +14,7 @@ namespace Easily.ES {
 
 		private static readonly Regex _ignored = new Regex(@"[\r\n\t\s ]+|\/\*(.|\n)*?\*\/|(\-\-|\/\/).*?(\n|$)", RegexOptions.Compiled);
 		private static readonly Regex _str = new Regex(@"""(\\""|.|\n)*?""", RegexOptions.Compiled);
-		private static readonly Regex _func = new Regex(@"\bfunction\b", RegexOptions.Compiled);
+        private static readonly Regex _func = new Regex(@"\bfunction\b", RegexOptions.Compiled);
 		private static readonly Regex _class = new Regex(@"\bclass\b", RegexOptions.Compiled);
 		private static readonly Regex _new = new Regex(@"\bnew\b", RegexOptions.Compiled);
 		private static readonly Regex _for = new Regex(@"\bfor\b", RegexOptions.Compiled);
@@ -78,14 +78,15 @@ namespace Easily.ES {
 				match = regex.Match(_src, pos);
 				_matches.Add(regex, match);
 			}
+            Check:
 			if (!match.Success) {
 				return false;
 			} else if (match.Index == pos) {
 				_matches[regex] = match.NextMatch();
 				return true;
 			} else if (match.Index < pos) {
-				_matches[regex] = match.NextMatch();
-				return IsMatch(regex, pos, out match);
+                match = regex.Match(_src, pos);
+                goto Check;
 			} else {
 				return false;
 			}
